@@ -8,6 +8,7 @@ namespace LowRezJam22.Engine.Graphics
     internal class RenderTexture : Texture
     {
         private readonly int _frameBuffer;
+        private readonly int _depthRenderBuffer;
 
         public RenderTexture(int width, int height) : base()
         {
@@ -18,9 +19,9 @@ namespace LowRezJam22.Engine.Graphics
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, _frameBuffer);
             _handle = GL.GenTexture();
             GL.BindTexture(TextureTarget.Texture2D, _handle);
-            byte[] tmpPixels = Array.Empty<byte>();
+            _pixels = Array.Empty<byte>();
             GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, _width, _height,
-                0, PixelFormat.Rgba, PixelType.UnsignedByte, tmpPixels);
+                0, PixelFormat.Rgba, PixelType.UnsignedByte, _pixels);
 
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapS);
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapT);
@@ -28,11 +29,11 @@ namespace LowRezJam22.Engine.Graphics
             GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter);
 
 
-            int depthRenderBuffer = GL.GenRenderbuffer();
-            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, depthRenderBuffer);
+            _depthRenderBuffer = GL.GenRenderbuffer();
+            GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, _depthRenderBuffer);
             GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent, _width, _height);
             GL.FramebufferRenderbuffer(FramebufferTarget.ReadFramebuffer, FramebufferAttachment.DepthAttachment,
-                RenderbufferTarget.Renderbuffer, depthRenderBuffer);
+                RenderbufferTarget.Renderbuffer, _depthRenderBuffer);
             GL.FramebufferTexture(FramebufferTarget.Framebuffer, FramebufferAttachment.ColorAttachment0, _handle, 0);
             DrawBuffersEnum[] DrawBuffers = { DrawBuffersEnum.ColorAttachment0 };
             GL.DrawBuffers(1, DrawBuffers);
@@ -66,6 +67,13 @@ namespace LowRezJam22.Engine.Graphics
 
             Game.Instance.SetViewport(new Helpers.Rectangle(0, 0, 512, 512));
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
+        }
+
+        public override void Dispose()
+        {
+            GL.DeleteFramebuffer(_frameBuffer);
+            GL.DeleteTexture(_handle);
+            GL.DeleteRenderbuffer(_depthRenderBuffer);
         }
     }
 }

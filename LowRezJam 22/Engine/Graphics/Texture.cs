@@ -5,7 +5,7 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace LowRezJam22.Engine.Graphics
 {
-    internal class Texture
+    internal class Texture : IDisposable
     {
         internal int _handle;
         internal int _width;
@@ -63,6 +63,11 @@ namespace LowRezJam22.Engine.Graphics
         {
             GL.ActiveTexture(unit);
             GL.BindTexture(TextureTarget.Texture2D, _handle);
+        }
+
+        public virtual void Dispose()
+        {
+            GL.DeleteTexture(_handle);
         }
     }
 }

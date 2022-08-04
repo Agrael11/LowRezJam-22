@@ -67,10 +67,10 @@ namespace LowRezJam22.Engine.Graphics
         {
             float[] vertices =
            {
-                1f, 1f, 0f, 1f, 0f, //top right
-                1f, 0f, 0f, 1f, 1f, //bottom right
-                0f, 0f, 0f, 0f, 1f, //bottom left
-                0f, 1f, 0f, 0f, 0f //top left
+                +1f, +1f, 0f, 1f, 0f, //top right
+                +1f, -1f, 0f, 1f, 1f, //bottom right
+                -1f, -1f, 0f, 0f, 1f, //bottom left
+                -1f, +1f, 0f, 0f, 0f //top left
             };
 
             uint[] indicies =
@@ -137,37 +137,35 @@ namespace LowRezJam22.Engine.Graphics
                 Logger.Log(Logger.Levels.Error, "Game is not initialized");
                 return;
             }
+            
             if (textures is not null && textures.Count > 0 && textures[0].GetType() == typeof(RenderTexture))
             {
                 verticalFlip = !verticalFlip;
             }
-            float x = destination.X / (Game.Instance.Viewport.Width / 2f);
-            float y = (Game.Instance.Viewport.Width - destination.Y - destination.Height) / (Game.Instance.Viewport.Height / 2f);
-            float width = destination.Width / (Game.Instance.Viewport.Width / 2f);
-            float height = destination.Height / (Game.Instance.Viewport.Height / 2f);
 
-            x = -1 + x * (Game.Instance.Viewport.Width / Game.Instance.WindowWidth);
-            y = -1f + y * (Game.Instance.Viewport.Height / Game.Instance.WindowHeight);
-            width *= Game.Instance.Viewport.Width / Game.Instance.WindowWidth;
-            height *= Game.Instance.Viewport.Height / Game.Instance.WindowHeight;
+            float x = destination.X / (Game.Instance.Viewport.Width / 2);
+            float y = -destination.Y / (Game.Instance.Viewport.Height / 2);
+            float width = destination.Width / (Game.Instance.Viewport.Width);
+            float height = destination.Height / (Game.Instance.Viewport.Height);
 
             Matrix4 translationMatrix = Matrix4.CreateTranslation(x, y, 0);
-            Matrix4 rotationMatrix = Matrix4.CreateTranslation(-0.5f, -0.5f, 0) *
-                Matrix4.CreateRotationZ((float)Math.Tau - rotation) *
-                Matrix4.CreateTranslation(0.5f, 0.5f, 0);
-            Matrix4 scaleMatrix = Matrix4.CreateScale(width, height, 1f);
+            Matrix4 rotationMatrix = Matrix4.CreateRotationZ((float)Math.Tau - rotation);
+            Matrix4 scaleMatrix = Matrix4.CreateTranslation(1f, -1f, 0) *
+                Matrix4.CreateScale(width, height, 1f) *
+                Matrix4.CreateTranslation(-1f, 1f, 0);
+            Matrix4 flipMatrix = Matrix4.Identity;
             if (horizontalFlip)
             {
-                scaleMatrix *= Matrix4.CreateScale(-1, 1, 1) * Matrix4.CreateTranslation(2 * destination.Width / Game.Instance.WindowWidth, 0, 0);
+                flipMatrix *= Matrix4.CreateScale(-1f, 1f, 1f);
             }
             if (verticalFlip)
             {
-                scaleMatrix *= Matrix4.CreateScale(1, -1, 1) * Matrix4.CreateTranslation(0, 2 * destination.Height / Game.Instance.WindowHeight, 0);
+                flipMatrix *= Matrix4.CreateScale(1f, -1f, 1f);
             }
 
             _shader.UseShader();
 
-            Matrix4 transformationMatrix = rotationMatrix * scaleMatrix * translationMatrix;
+            Matrix4 transformationMatrix = rotationMatrix * flipMatrix * scaleMatrix * translationMatrix;
             _shader.SetMatrix4("transform", ref transformationMatrix);
             Vector4 vecColor = color;
             _shader.SetVector4("color", ref vecColor);
@@ -203,33 +201,30 @@ namespace LowRezJam22.Engine.Graphics
             {
                 verticalFlip = !verticalFlip;
             }
-            float x = destination.X / (Game.Instance.Viewport.Width / 2f);
-            float y = (Game.Instance.Viewport.Width - destination.Y - destination.Height) / (Game.Instance.Viewport.Height / 2f);
-            float width = destination.Width / (Game.Instance.Viewport.Width / 2f);
-            float height = destination.Height / (Game.Instance.Viewport.Height / 2f);
 
-            x = -1 + x * (Game.Instance.Viewport.Width / Game.Instance.WindowWidth);
-            y = -1f + y * (Game.Instance.Viewport.Height / Game.Instance.WindowHeight);
-            width *= Game.Instance.Viewport.Width / Game.Instance.WindowWidth;
-            height *= Game.Instance.Viewport.Height / Game.Instance.WindowHeight;
+            float x = destination.X / (Game.Instance.Viewport.Width / 2);
+            float y = -destination.Y / (Game.Instance.Viewport.Height / 2);
+            float width = destination.Width / (Game.Instance.Viewport.Width);
+            float height = destination.Height / (Game.Instance.Viewport.Height);
 
             Matrix4 translationMatrix = Matrix4.CreateTranslation(x, y, 0);
-            Matrix4 rotationMatrix = Matrix4.CreateTranslation(-0.5f, -0.5f, 0) *
-                Matrix4.CreateRotationZ((float)Math.Tau - rotation) *
-                Matrix4.CreateTranslation(0.5f, 0.5f, 0);
-            Matrix4 scaleMatrix = Matrix4.CreateScale(width, height, 1f);
+            Matrix4 rotationMatrix = Matrix4.CreateRotationZ((float)Math.Tau - rotation);
+            Matrix4 scaleMatrix = Matrix4.CreateTranslation(1f, -1f, 0) *
+                Matrix4.CreateScale(width, height, 1f) *
+                Matrix4.CreateTranslation(-1f, 1f, 0);
+            Matrix4 flipMatrix = Matrix4.Identity;
             if (horizontalFlip)
             {
-                scaleMatrix *= Matrix4.CreateScale(-1, 1, 1) * Matrix4.CreateTranslation(2 * destination.Width / Game.Instance.WindowWidth, 0, 0);
+                flipMatrix *= Matrix4.CreateScale(-1f, 1f, 1f);
             }
             if (verticalFlip)
             {
-                scaleMatrix *= Matrix4.CreateScale(1, -1, 1) * Matrix4.CreateTranslation(0, 2 * destination.Height / Game.Instance.WindowHeight, 0);
+                flipMatrix *= Matrix4.CreateScale(1f, -1f, 1f);
             }
 
             _shader.UseShader();
 
-            Matrix4 transformationMatrix = rotationMatrix * scaleMatrix * translationMatrix;
+            Matrix4 transformationMatrix = rotationMatrix * flipMatrix * scaleMatrix * translationMatrix;
             _shader.SetMatrix4("transform", ref transformationMatrix);
             Vector4 vecColor = color;
             _shader.SetVector4("color", ref vecColor);
@@ -262,36 +257,32 @@ namespace LowRezJam22.Engine.Graphics
                 verticalFlip = !verticalFlip;
             }
 
-            float x = destination.X / (Game.Instance.Viewport.Width / 2f);
-            float y = (Game.Instance.Viewport.Width - destination.Y - destination.Height) / (Game.Instance.Viewport.Height / 2f);
-            float width = destination.Width / (Game.Instance.Viewport.Width / 2f);
-            float height = destination.Height / (Game.Instance.Viewport.Height / 2f);
-
-            x = -1 + x * (Game.Instance.Viewport.Width / Game.Instance.WindowWidth);
-            y = -1f + y * (Game.Instance.Viewport.Height / Game.Instance.WindowHeight);
-            width *= Game.Instance.Viewport.Width / Game.Instance.WindowWidth;
-            height *= Game.Instance.Viewport.Height / Game.Instance.WindowHeight;
+            float x = destination.X / (Game.Instance.Viewport.Width / 2);
+            float y = -destination.Y / (Game.Instance.Viewport.Height / 2);
+            float width = destination.Width / (Game.Instance.Viewport.Width);
+            float height = destination.Height / (Game.Instance.Viewport.Height);
 
             Matrix4 translationMatrix = Matrix4.CreateTranslation(x, y, 0);
-            Matrix4 rotationMatrix = Matrix4.CreateTranslation(-0.5f, -0.5f, 0) *
-                Matrix4.CreateRotationZ((float)Math.Tau - rotation) *
-                Matrix4.CreateTranslation(0.5f, 0.5f, 0);
-            Matrix4 scaleMatrix = Matrix4.CreateScale(width, height, 1f);
+            Matrix4 rotationMatrix = Matrix4.CreateRotationZ((float)Math.Tau - rotation);
+            Matrix4 scaleMatrix = Matrix4.CreateTranslation(1f, -1f, 0) *
+                Matrix4.CreateScale(width, height, 1f) *
+                Matrix4.CreateTranslation(-1f, 1f, 0);
+            Matrix4 flipMatrix = Matrix4.Identity;
             if (horizontalFlip)
             {
-                scaleMatrix *= Matrix4.CreateScale(-1, 1, 1) * Matrix4.CreateTranslation(2 * destination.Width / Game.Instance.WindowWidth, 0, 0);
+                flipMatrix *= Matrix4.CreateScale(-1f, 1f, 1f);
             }
             if (verticalFlip)
             {
-                scaleMatrix *= Matrix4.CreateScale(1, -1, 1) * Matrix4.CreateTranslation(0, 2 * destination.Height / Game.Instance.WindowHeight, 0);
+                flipMatrix *= Matrix4.CreateScale(1f, -1f, 1f);
             }
 
-            spriteDefinition.Shader.UseShader();
+            _shader.UseShader();
 
-            Matrix4 transformationMatrix = rotationMatrix * scaleMatrix * translationMatrix;
-            spriteDefinition.Shader.SetMatrix4("transform", ref transformationMatrix);
+            Matrix4 transformationMatrix = rotationMatrix * flipMatrix * scaleMatrix * translationMatrix;
+            _shader.SetMatrix4("transform", ref transformationMatrix);
             Vector4 vecColor = color;
-            spriteDefinition.Shader.SetVector4("color", ref vecColor);
+            _shader.SetVector4("color", ref vecColor);
 
             spriteDefinition.Shader.SetInt("texture1", 0);
 

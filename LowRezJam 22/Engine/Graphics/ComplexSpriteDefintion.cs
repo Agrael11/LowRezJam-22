@@ -90,10 +90,10 @@ namespace LowRezJam22.Engine.Graphics
 
             float[] vertices =
             {
-                1f, 1f, 0f, textureX2, textureY1, //top right
-                1f, 0f, 0f, textureX2, textureY2, //bottom right
-                0f, 0f, 0f, textureX1, textureY2, //bottom left
-                0f, 1f, 0f, textureX1, textureY1 //top left
+                +1f, +1f, 0f, textureX2, textureY1, //top right
+                +1f, -1f, 0f, textureX2, textureY2, //bottom right
+                -1f, -1f, 0f, textureX1, textureY2, //bottom left
+                -1f, +1f, 0f, textureX1, textureY1 //top left
             };
 
             uint[] indicies =

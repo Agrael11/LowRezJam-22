@@ -3,34 +3,39 @@ using LowRezJam22.Engine.Graphics;
 using LowRezJam22.Engine.Tiles;
 using LowRezJam22.Helpers;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace LowRezJam22.Scenes
 {
     internal class GameScene : SceneBase
     {
-        private Shader mainShader;
-        private TileMap mainTileMap;
+        private Shader _mainShader;
+        private TileMap _mainTileMap;
 
-        RenderTexture gameRenderTexture = new(64, 64);
-        RenderTexture uiRenderTexture = new(64, 64);
-        RenderTexture mainRendertexture = new(64, 64);
+        private RenderTexture _gameRenderTexture = new(64, 64);
+        private RenderTexture _uiRenderTexture = new(64, 64);
+        private RenderTexture _mainRendertexture = new(64, 64);
+        private Background orangeBackground = new();
+        private Background blueBackground = new();
+        private float CameraX = 0;
+        private float CameraY = 0;
 
         private string tempString =
-            "----------\n" +
-            "-x-----x--\n" +
-            "----x--x--\n" +
-            "----x--x--\n" +
-            "---xxx----\n" +
-            "-xxxxxxx--\n" +
-            "---xxx----\n" +
-            "-x--x-----\n" +
-            "-xx-x-xxx-\n" +
-            "----------\n";
+            "...........xxxxxxx--------------------------------\n" +
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
+            "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n";
 
         public GameScene()
         {
-            mainShader = new Shader("Assets/Shaders/MainShader.vert", "Assets/Shaders/MainShader.frag");
-            Renderer.SetShader(mainShader);
+            _mainShader = new Shader("Assets/Shaders/MainShader.vert", "Assets/Shaders/MainShader.frag");
+            Renderer.SetShader(_mainShader);
+
+            orangeBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
+            orangeBackground.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
+            blueBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
+            blueBackground.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
 
             List<Texture> desertTiles = new();
             for (int i = 0; i <= 16; i++)
@@ -44,7 +49,7 @@ namespace LowRezJam22.Scenes
                 new() { desertTiles[10] }, new() { desertTiles[11] }, new() { desertTiles[12] },
                 new() { desertTiles[13] }, new() { desertTiles[14] }, new() { desertTiles[15] },
                 new() { desertTiles[16] });
-            mainTileMap = new TileMap(0, 0, 4, 4, mainShader);
+            _mainTileMap = new TileMap(0, 0, 4, 4, _mainShader);
             string[] temp = tempString.Split('\n');
             for (int y = 0; y < temp.Length; y++)
             {
@@ -52,7 +57,7 @@ namespace LowRezJam22.Scenes
                 {
                     if (temp[y][x] == 'x')
                     {
-                        mainTileMap.SetTileAt(x,y, tile);
+                        _mainTileMap.SetTileAt(x,y+13, tile);
                     }
                 }
             }
@@ -60,44 +65,78 @@ namespace LowRezJam22.Scenes
 
         public override void Init()
         {
+            if (Game.Instance is null)
+                return;
+            Game.Instance.SetViewport(0, 0, (int)Game.Instance.WindowWidth, (int)Game.Instance.WindowHeight);
         }
 
         public override void Destroy()
         {
         }
 
-        public override void Update()
+        public override void Update(FrameEventArgs args)
         {
+            if (Game.Instance is null)
+                return;
+
+            if (Game.Instance.KeyboardState.IsKeyDown(Keys.D))
+            {
+                CameraX += 0.5f;
+            }
+            if (Game.Instance.KeyboardState.IsKeyDown(Keys.A))
+            {
+                CameraX -= 0.5f;
+            }
+            if (Game.Instance.KeyboardState.IsKeyDown(Keys.W))
+            {
+                CameraY += 0.5f;
+            }
+            if (Game.Instance.KeyboardState.IsKeyDown(Keys.S))
+            {
+                CameraY -= 0.5f;
+            }
+            Game.Instance.Title = CameraX.ToString() + "_" + CameraY.ToString();
         }
 
-        public override RenderTexture Draw()
+        public override RenderTexture Draw(FrameEventArgs args)
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
+            Renderer.Clear(Colors.Red);
             DrawGame();
             DrawUI();
-
-            RenderTexture.Begin(mainRendertexture);
+            
+            RenderTexture.Begin(_mainRendertexture);
             Renderer.Clear(new Color(255, 0, 0, 255));
-            Renderer.DrawSprite(gameRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
-            Renderer.DrawSprite(uiRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
+            Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
+            Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
             RenderTexture.End();
 
-            return mainRendertexture;
+            return _mainRendertexture;
         }
 
         private void DrawGame()
         {
-            RenderTexture.Begin(gameRenderTexture);
-            Renderer.Clear(new Color(0, 0, 0, 255));
-            mainTileMap.Draw();
+            if (Game.Instance is null)
+            {
+                return;
+            }
+
+            _gameRenderTexture.Begin();
+
+            blueBackground.Draw((int)CameraX, (int)CameraY);
+
+            _mainTileMap.X = -(int)CameraX;
+            _mainTileMap.Y = (int)CameraY;
+            _mainTileMap.Draw();
+            
             RenderTexture.End();
         }
 
         private void DrawUI()
         {
-            RenderTexture.Begin(uiRenderTexture);
+            RenderTexture.Begin(_uiRenderTexture);
             RenderTexture.End();
         }
     }
