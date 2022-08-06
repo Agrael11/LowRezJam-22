@@ -27,6 +27,9 @@
     <None Update="Assets\Backgrounds\OrangeSky.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Backgrounds\Sand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Player\CharacterJump.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

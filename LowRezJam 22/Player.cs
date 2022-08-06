@@ -60,9 +60,10 @@ namespace LowRezJam22
 
             if (_velocity > _maxVelocity) _velocity = _maxVelocity;
             if (_velocity < -_maxVelocity) _velocity = -_maxVelocity;
-            Y += _velocity;
-
-            Rectangle playerRectangle = new(X, Y, 4, 12);
+            float velocityChange = _velocity * (float)args.Time * 50;
+            Y += velocityChange;
+            
+            Rectangle playerRectangle = new(X, Y- velocityChange, 4, velocityChange+12);
             _grounded = false;
 
             foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
@@ -78,21 +79,18 @@ namespace LowRezJam22
                 }
             }
 
-            //if (_grounded)
-            //{
-                if (Game.Instance.KeyboardState.IsKeyDown(Keys.D) && !Game.Instance.IsKeyDown(Keys.A))
-                {
-                    _movingStatus = 1;
-                }
-                else if (Game.Instance.KeyboardState.IsKeyDown(Keys.A))
-                {
-                    _movingStatus = -1;
-                }
-                else
-                {
-                    _movingStatus = 0;
-                }
-            //}
+            if (Game.Instance.KeyboardState.IsKeyDown(Keys.D) && !Game.Instance.IsKeyDown(Keys.A))
+            {
+                _movingStatus = 1;
+            }
+            else if (Game.Instance.KeyboardState.IsKeyDown(Keys.A))
+            {
+                _movingStatus = -1;
+            }
+            else
+            {
+                _movingStatus = 0;
+            }
 
             bool moving = false;
             float oldX = X;
@@ -101,34 +99,34 @@ namespace LowRezJam22
                 X += (float)args.Time * _playerSpeed;
                 moving = true;
                 _lastDirection = true;
-            }
 
-            playerRectangle = new(X, Y, 4, 12);
-            foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
-            {
-                if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                playerRectangle = new(X, Y, 4, 12);
+                foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
                 {
-                    X = oldX;
-                    moving = false;
+                    if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                    {
+                        X = oldX;
+                        moving = false;
+                    }
                 }
             }
 
-            oldX = X;
 
             if (_movingStatus == -1)
             {
+                oldX = X;
                 X -= (float)args.Time * _playerSpeed;
                 moving = true;
                 _lastDirection = false;
-            }
 
-            playerRectangle = new(X, Y, 4, 12);
-            foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
-            {
-                if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                playerRectangle = new(X, Y, 4, 12);
+                foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
                 {
-                    X = oldX;
-                    moving = false;
+                    if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                    {
+                        X = oldX;
+                        moving = false;
+                    }
                 }
             }
 
@@ -150,8 +148,8 @@ namespace LowRezJam22
             if (_parentScene is null)
                 return;
 
-            float x = (X) - _parentScene.CameraX;
-            float y = (Y) - _parentScene.CameraY;
+            float x = (int)(X) - _parentScene.CameraX;
+            float y = (int)(Y) - _parentScene.CameraY;
 
             if (_grounded)
             {

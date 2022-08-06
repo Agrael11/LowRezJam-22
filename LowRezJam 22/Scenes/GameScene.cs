@@ -18,9 +18,11 @@ namespace LowRezJam22.Scenes
         private RenderTexture _mainRendertexture = new(64, 64);
         private Background _orangeBackground = new();
         private Background _blueBackground = new();
+        private Background _sandBackground = new();
         public float CameraX { get; private set; } = 0;
         public float CameraY { get; private set; } = 0;
         public Player Player { get; private set; }
+        public float SandX = 0;
 
         private string tempString =
             "...........xxxxxxx--------------------------------\n" +
@@ -44,8 +46,12 @@ namespace LowRezJam22.Scenes
 
             _orangeBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
             _orangeBackground.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
+            _orangeBackground.ParallaxStrength = 1;
             _blueBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
             _blueBackground.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
+            _blueBackground.ParallaxStrength = 1;
+            _sandBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/Sand.png"), true));
+            _sandBackground.ParallaxStrength = 3;
 
             List<Texture> desertTiles = new();
             for (int i = 0; i <= 20; i++)
@@ -90,9 +96,6 @@ namespace LowRezJam22.Scenes
             if (Game.Instance is null)
                 return;
 
-            CameraX = (int)(Player.X - 28);
-            Game.Instance.Title = CameraX.ToString() + "_" + CameraY.ToString();
-
             Player.Update(args);
         }
 
@@ -110,6 +113,8 @@ namespace LowRezJam22.Scenes
             Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
             Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
             RenderTexture.End();
+
+            SandX += (float)args.Time*20;
 
             return _mainRendertexture;
         }
@@ -129,8 +134,10 @@ namespace LowRezJam22.Scenes
             MainTileMap.Y = (int)CameraY;
             MainTileMap.Draw();
 
+            CameraX = (int)Player.X - 28;
             Player.Draw(args);
             
+            _sandBackground.Draw((int)(CameraX + SandX), (int)CameraY);
             RenderTexture.End();
         }
 

@@ -23,27 +23,29 @@ namespace LowRezJam22.Helpers
             X = x;
             Y = y;
             Width = width;
+            if (Width < 0)
+            {
+                X += Width;
+                Width *= -1;
+            }
             Height = height;
+            if (Height < 0)
+            {
+                Y += Height;
+                Height *= -1;
+            }
         }
 
-        public Rectangle(Vector2 location, float width, float height)
+        public Rectangle(Vector2 location, float width, float height) : this(location.X, location.Y, width, height)
         {
-            Width = width;
-            Height = height;
-            Location = location;
         }
 
-        public Rectangle(float x, float y, Vector2 size)
+        public Rectangle(float x, float y, Vector2 size) : this(x, y, size.X, size.Y)
         {
-            X = x;
-            Y = y;
-            Size = size;
         }
 
-        public Rectangle(Vector2 location, Vector2 size)
+        public Rectangle(Vector2 location, Vector2 size) : this(location.X, location.Y, size.X, size.Y)
         {
-            Location = location;
-            Size = size;
         }
 
         public static bool Intersects(Rectangle rectangle1, Rectangle rectangle2)

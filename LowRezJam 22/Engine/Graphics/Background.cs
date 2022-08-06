@@ -13,7 +13,7 @@ namespace LowRezJam22.Engine.Graphics
             {
                 if (Layers[i].scroll)
                 {
-                    DrawScrollLayer(Layers[i].texture, Layers[i].tint, CameraX, CameraY, Layers.Count - i);
+                    DrawScrollLayer(Layers[i].texture, Layers[i].tint, CameraX, CameraY, (Layers.Count - i) * ParallaxStrength);
                 }
                 else
                 {
@@ -22,10 +22,10 @@ namespace LowRezJam22.Engine.Graphics
             }
         }
 
-        private void DrawScrollLayer(Texture layer, Color tint, int CameraX, int CameraY, int parallax)
+        private static void DrawScrollLayer(Texture layer, Color tint, int CameraX, int CameraY, int parallax)
         {
-            float parallaxX = CameraX / 4;
-            float parallaxY = (CameraY + 10) / 4;
+            float parallaxX = (CameraX / 4) * parallax;
+            float parallaxY = ((CameraY + 10) / 4) * parallax;
 
             while (parallaxX < 0) parallaxX += layer.Width;
             while (parallaxX > layer.Width) parallaxX -= layer.Width;
