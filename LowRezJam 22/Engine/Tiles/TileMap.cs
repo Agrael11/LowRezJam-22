@@ -5,7 +5,7 @@ namespace LowRezJam22.Engine.Tiles
 {
     internal class TileMap
     {
-        private Dictionary<(int X, int Y), TileDefinition> _tiles = new();
+        public Dictionary<(int X, int Y), TileDefinition> Tiles { get; private set; } = new();
 
         public int X { get; set; } = 0;
         public int Y { get; set; } = 0;
@@ -26,30 +26,30 @@ namespace LowRezJam22.Engine.Tiles
 
         public TileDefinition? GetTileAt(int X, int Y)
         {
-            if (_tiles.ContainsKey((X, Y))) 
+            if (Tiles.ContainsKey((X, Y))) 
             {
-                return _tiles[(X, Y)];
+                return Tiles[(X, Y)];
             }
             return null;
         }
 
         public void SetTileAt(int X, int Y, TileDefinition tile)
         {
-            if (_tiles.ContainsKey((X,Y)))
+            if (Tiles.ContainsKey((X,Y)))
             {
-                _tiles[(X, Y)] = tile;
+                Tiles[(X, Y)] = tile;
             }
             else
             {
-                _tiles.Add((X, Y), tile);
+                Tiles.Add((X, Y), tile);
             }
         }
 
         public void RemoveTileAt(int X, int Y)
         {
-            if (_tiles.ContainsKey((X,Y)))
+            if (Tiles.ContainsKey((X,Y)))
             {
-                _tiles.Remove((X, Y));
+                Tiles.Remove((X, Y));
             }
         }
 
@@ -59,7 +59,7 @@ namespace LowRezJam22.Engine.Tiles
             {
                 WriteIndented = true
             };
-            string serializedData = System.Text.Json.JsonSerializer.Serialize(_tiles, _tiles.GetType(), options);
+            string serializedData = System.Text.Json.JsonSerializer.Serialize(Tiles, Tiles.GetType(), options);
             System.IO.File.WriteAllText(file, serializedData);
         }
 
@@ -68,17 +68,17 @@ namespace LowRezJam22.Engine.Tiles
             if (!System.IO.File.Exists(file))
                 return;
             string data = System.IO.File.ReadAllText(file);
-            object? returnData = System.Text.Json.JsonSerializer.Deserialize(data, _tiles.GetType());
+            object? returnData = System.Text.Json.JsonSerializer.Deserialize(data, Tiles.GetType());
             if (returnData is null)
                 return;
-            _tiles = (Dictionary<(int X, int Y), TileDefinition>)returnData;
+            Tiles = (Dictionary<(int X, int Y), TileDefinition>)returnData;
         }
 
         public void Draw()
         {
-            foreach (var key in _tiles.Keys)
+            foreach (var key in Tiles.Keys)
             {
-                Texture? texture = _tiles[key].GetTexture(key.X, key.Y, this);
+                Texture? texture = Tiles[key].GetTexture(key.X, key.Y, this);
                 if (texture is null)
                     continue;
                 Renderer.SetShader(ShaderReference);
