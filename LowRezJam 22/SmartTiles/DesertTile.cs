@@ -57,22 +57,22 @@ namespace LowRezJam22.SmartTiles
             int flags = BuildFlags(X, Y, map);
             return flags switch
             {
-                1 => GetRandomTexture(VerticalBottom),
-                2 => GetRandomTexture(HorionzalLeft),
-                3 => GetRandomTexture(LeftDown),
-                4 => GetRandomTexture(VerticalTop),
-                5 => GetRandomTexture(VerticalCenter),
-                6 => GetRandomTexture(LeftUp),
-                7 => GetRandomTexture(LeftCenter),
-                8 => GetRandomTexture(HorionzalRight),
-                9 => GetRandomTexture(RightDown),
-                10 => GetRandomTexture(HorionzalCenter),
-                11 => GetRandomTexture(MiddleDown),
-                12 => GetRandomTexture(RightUp),
-                13 => GetRandomTexture(RightCenter),
-                14 => GetRandomTexture(MiddleUp),
-                15 => GetRandomTexture(MiddleCenter),
-                _ => GetRandomTexture(Filled),
+                1 => GetRandomTexture(X, Y, VerticalBottom),
+                2 => GetRandomTexture(X, Y, HorionzalLeft),
+                3 => GetRandomTexture(X, Y, LeftDown),
+                4 => GetRandomTexture(X, Y, VerticalTop),
+                5 => GetRandomTexture(X, Y, VerticalCenter),
+                6 => GetRandomTexture(X, Y, LeftUp),
+                7 => GetRandomTexture(X, Y, LeftCenter),
+                8 => GetRandomTexture(X, Y, HorionzalRight),
+                9 => GetRandomTexture(X, Y, RightDown),
+                10 => GetRandomTexture(X, Y, HorionzalCenter),
+                11 => GetRandomTexture(X, Y, MiddleDown),
+                12 => GetRandomTexture(X, Y, RightUp),
+                13 => GetRandomTexture(X, Y, RightCenter),
+                14 => GetRandomTexture(X, Y, MiddleUp),
+                15 => GetRandomTexture(X, Y, MiddleCenter),
+                _ => GetRandomTexture(X, Y, Filled),
             };
         }
 
@@ -96,9 +96,10 @@ namespace LowRezJam22.SmartTiles
             return true;
         }
 
-        private Texture GetRandomTexture(List<Texture> list)
+        private Texture GetRandomTexture(int x, int y, List<Texture> list)
         {
-            return list[Random.Shared.Next(0, list.Count)];
+            Random r = new Random(y*100+x);
+            return list[r.Next(0, list.Count)];
         }
     }
 }

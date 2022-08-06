@@ -38,17 +38,17 @@ namespace LowRezJam22.Scenes
             blueBackground.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
 
             List<Texture> desertTiles = new();
-            for (int i = 0; i <= 16; i++)
+            for (int i = 0; i <= 20; i++)
             {
                 desertTiles.Add(new Texture("Assets/Tiles/DesertTiles_" + i.ToString().PadLeft(2, '0') + ".png"));
             }
 
-            SmartTiles.DesertTile tile = new(new() { desertTiles[0] }, new() { desertTiles[1] }, new() { desertTiles[2] },
-                new() { desertTiles[3] }, new() { desertTiles[4], desertTiles[5] }, new() { desertTiles[6] },
-                new() { desertTiles[7] }, new() { desertTiles[8] }, new() { desertTiles[9] },
-                new() { desertTiles[10] }, new() { desertTiles[11] }, new() { desertTiles[12] },
-                new() { desertTiles[13] }, new() { desertTiles[14] }, new() { desertTiles[15] },
-                new() { desertTiles[16] });
+            SmartTiles.DesertTile tile = new(new() { desertTiles[0] }, new() { desertTiles[1], desertTiles[2] }, new() { desertTiles[3] },
+                new() { desertTiles[4], desertTiles[5] }, new() { desertTiles[6], desertTiles[7] }, new() { desertTiles[8], desertTiles[9] },
+                new() { desertTiles[10] }, new() { desertTiles[11], desertTiles[12] }, new() { desertTiles[13] },
+                new() { desertTiles[14] }, new() { desertTiles[15] }, new() { desertTiles[16] },
+                new() { desertTiles[17] }, new() { desertTiles[18] }, new() { desertTiles[19] },
+                new() { desertTiles[20] });
             _mainTileMap = new TileMap(0, 0, 4, 4, _mainShader);
             string[] temp = tempString.Split('\n');
             for (int y = 0; y < temp.Length; y++)
