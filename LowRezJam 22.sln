@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LowRezJam 22", "LowRezJam 22\LowRezJam 22.csproj", "{2CD9794B-2395-4813-B1C0-4ACE62808D9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LowRezJam22", "LowRezJam 22\LowRezJam22.csproj", "{2CD9794B-2395-4813-B1C0-4ACE62808D9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PC Build", "PC Build\PC Build.csproj", "{F11DE9B4-D808-47A2-A0BF-17BD3A5CDA97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PC Build", "PC Build\PC Build.csproj", "{F11DE9B4-D808-47A2-A0BF-17BD3A5CDA97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

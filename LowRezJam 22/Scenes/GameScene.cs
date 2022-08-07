@@ -104,14 +104,14 @@ namespace LowRezJam22.Scenes
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
 
-            Renderer.Clear(Colors.Red);
+            Renderer.Clear(Colors.Black);
             DrawGame(args);
             DrawUI(args);
             
             RenderTexture.Begin(_mainRendertexture);
-            Renderer.Clear(new Color(255, 0, 0, 255));
-            Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
-            Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), new Color(255, 255, 255, 255));
+            Renderer.Clear(Colors.Black);
+            Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
+            Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
             RenderTexture.End();
 
             SandX += (float)args.Time*20;
@@ -128,7 +128,7 @@ namespace LowRezJam22.Scenes
 
             _gameRenderTexture.Begin();
 
-            _blueBackground.Draw((int)CameraX, (int)CameraY);
+            _orangeBackground.Draw((int)CameraX, (int)CameraY);
 
             MainTileMap.X = -(int)CameraX;
             MainTileMap.Y = (int)CameraY;
@@ -136,7 +136,7 @@ namespace LowRezJam22.Scenes
 
             CameraX = (int)Player.X - 28;
             Player.Draw(args);
-            
+
             _sandBackground.Draw((int)(CameraX + SandX), (int)CameraY);
             RenderTexture.End();
         }
