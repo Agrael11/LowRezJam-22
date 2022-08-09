@@ -27,6 +27,7 @@ namespace LowRezJam22.Scenes
         public Player Player { get; private set; }
         public float SandX = 0;
         public static Gravity GravityDirection = Gravity.DOWN;
+        float rotation = 0;
 
         private string tempString =
             "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
@@ -123,10 +124,31 @@ namespace LowRezJam22.Scenes
             Renderer.Clear(Colors.Black);
             DrawGame(args);
             DrawUI(args);
-            
+
+            rotation %= 6.28f;
+            while (rotation < 0) rotation += 6.28f;
+            if (GravityDirection == Gravity.DOWN)
+            {
+                if (rotation != 0)
+                {
+                    rotation-=0.1f;
+                    if (rotation < 0.1f) rotation = 0;
+                }
+            }
+            else if (GravityDirection == Gravity.UP)
+            {
+                if (rotation != 3.14f)
+                {
+                    rotation -= 0.1f;
+                    if (rotation > 3f && rotation < 3.2f) rotation = 3.14f;
+                }
+            }
+
             RenderTexture.Begin(_mainRendertexture);
             Renderer.Clear(Colors.Black);
-            Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
+            _orangeBackground.Draw((int)CameraX, (int)CameraY);
+            Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White, rotation);
+            _sandBackground.Draw((int)(CameraX + SandX), (int)CameraY);
             Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
             RenderTexture.End();
 
@@ -143,9 +165,7 @@ namespace LowRezJam22.Scenes
             }
 
             _gameRenderTexture.Begin();
-
-            _orangeBackground.Draw((int)CameraX, (int)CameraY);
-
+            Renderer.Clear(new Color(0, 0, 0, 0));
             MainTileMap.X = -(int)CameraX;
             MainTileMap.Y = (int)CameraY;
             MainTileMap.Draw();
@@ -153,7 +173,6 @@ namespace LowRezJam22.Scenes
             CameraX = (int)Player.X - 28;
             Player.Draw(args);
 
-            _sandBackground.Draw((int)(CameraX + SandX), (int)CameraY);
             RenderTexture.End();
         }
 

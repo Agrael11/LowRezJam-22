@@ -55,6 +55,18 @@ namespace LowRezJam22
 
             _velocity += _gravity * (float)args.Time;
 
+            if (Game.Instance.KeyboardState.IsKeyPressed(Keys.Space))
+            {
+                if (GameScene.GravityDirection == Gravity.DOWN)
+                {
+                    GameScene.GravityDirection = Gravity.UP;
+                }
+                else
+                {
+                    GameScene.GravityDirection = Gravity.DOWN;
+                }
+            }
+
             if (Game.Instance.KeyboardState.IsKeyDown(Keys.W) && _grounded)
             {
                 _velocity = -_maxVelocity / 1.5f;
@@ -81,7 +93,7 @@ namespace LowRezJam22
             switch (GameScene.GravityDirection)
             {
                 case Gravity.DOWN:
-                    UpdateUp(args);
+                    UpdateDown(args);
                     break;
                 case Gravity.UP:
                     UpdateUp(args);
@@ -272,10 +284,10 @@ namespace LowRezJam22
             switch (GameScene.GravityDirection)
             {
                 case Gravity.DOWN:
-                    rotation = 3.14f;
+                    rotation = 0f;
                     break;
                 case Gravity.UP:
-                    rotation = 0f;
+                    rotation = 3.14f;
                     break;
             }
 
