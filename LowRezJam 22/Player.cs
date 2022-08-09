@@ -51,6 +51,8 @@ namespace LowRezJam22
             if (_parentScene is null)
                 return;
 
+            //Settíng a velocity
+
             _velocity += _gravity * (float)args.Time;
 
             if (Game.Instance.KeyboardState.IsKeyDown(Keys.W) && _grounded)
@@ -60,24 +62,8 @@ namespace LowRezJam22
 
             if (_velocity > _maxVelocity) _velocity = _maxVelocity;
             if (_velocity < -_maxVelocity) _velocity = -_maxVelocity;
-            float velocityChange = _velocity * (float)args.Time * 50;
-            Y += velocityChange;
-            
-            Rectangle playerRectangle = new(X, Y- velocityChange, 4, velocityChange+12);
-            _grounded = false;
 
-            foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
-            {
-                if (new Rectangle(key.X*4,key.Y*4,4,4).Intersects(playerRectangle))
-                {
-                    if (Y > key.Y * 4 - 12)
-                    {
-                        Y = key.Y * 4 - 12;
-                    }
-                    _velocity = 0;
-                    _grounded = true;
-                }
-            }
+            //Setting a moving status
 
             if (Game.Instance.KeyboardState.IsKeyDown(Keys.D) && !Game.Instance.IsKeyDown(Keys.A))
             {
@@ -92,8 +78,57 @@ namespace LowRezJam22
                 _movingStatus = 0;
             }
 
+            switch (GameScene.GravityDirection)
+            {
+                case Gravity.DOWN:
+                    UpdateUp(args);
+                    break;
+                case Gravity.UP:
+                    UpdateUp(args);
+                    break;
+                case Gravity.LEFT:
+                    break;
+                case Gravity.RIGHT:
+                    break;
+            }
+        }
+
+        public void UpdateDown(FrameEventArgs args)
+        {
+
+            float velocityChange = _velocity * (float)args.Time * 50;
+            Y += velocityChange;
+
+            Rectangle playerRectangle = new(X, Y - velocityChange, 4, velocityChange + 12);
+            _grounded = false;
+
+            foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
+            {
+                if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                {
+                    if (_velocity > 0)
+                    {
+                        if (Y > key.Y * 4 - 12)
+                        {
+                            Y = key.Y * 4 - 12;
+                        }
+                        _velocity = 0;
+                        _grounded = true;
+                    }
+                    else if (_velocity < 0)
+                    {
+                        _velocity = 0;
+                        if (Y < key.Y * 4 + 4)
+                        {
+                            Y = key.Y * 4 + 4;
+                        }
+                    }
+                }
+            }
+
             bool moving = false;
             float oldX = X;
+
             if (_movingStatus == 1)
             {
                 X += (float)args.Time * _playerSpeed;
@@ -110,7 +145,6 @@ namespace LowRezJam22
                     }
                 }
             }
-
 
             if (_movingStatus == -1)
             {
@@ -131,7 +165,90 @@ namespace LowRezJam22
             }
 
             if (_grounded)
-            { 
+            {
+                if (moving)
+                {
+                    _anim += (float)args.Time * 5;
+                }
+                else
+                {
+                    _anim = 0;
+                }
+            }
+        }
+
+        public void UpdateUp(FrameEventArgs args)
+        {
+
+            float velocityChange = _velocity * (float)args.Time * 50;
+            Y -= velocityChange;
+
+            Rectangle playerRectangle = new(X, Y - velocityChange, 4, velocityChange + 12);
+            _grounded = false;
+
+            foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
+            {
+                if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                {
+                    if (_velocity < 0)
+                    {
+                        if (Y > key.Y * 4 - 12)
+                        {
+                            Y = key.Y * 4 - 12;
+                        }
+                        _velocity = 0;
+                    }
+                    else if (_velocity > 0)
+                    {
+                        _velocity = 0;
+                        if (Y < key.Y * 4 + 4)
+                        {
+                            Y = key.Y * 4 + 4;
+                        }
+                        _grounded = true;
+                    }
+                }
+            }
+
+            bool moving = false;
+            float oldX = X;
+
+            if (_movingStatus == 1)
+            {
+                X -= (float)args.Time * _playerSpeed;
+                moving = true;
+                _lastDirection = true;
+
+                playerRectangle = new(X, Y, 4, 12);
+                foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
+                {
+                    if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                    {
+                        X = oldX;
+                        moving = false;
+                    }
+                }
+            }
+            if (_movingStatus == -1)
+            {
+                oldX = X;
+                X += (float)args.Time * _playerSpeed;
+                moving = true;
+                _lastDirection = false;
+
+                playerRectangle = new(X, Y, 4, 12);
+                foreach ((int X, int Y) key in _parentScene.MainTileMap.Tiles.Keys)
+                {
+                    if (new Rectangle(key.X * 4, key.Y * 4, 4, 4).Intersects(playerRectangle))
+                    {
+                        X = oldX;
+                        moving = false;
+                    }
+                }
+            }
+
+            if (_grounded)
+            {
                 if (moving)
                 {
                     _anim += (float)args.Time * 5;
@@ -151,14 +268,25 @@ namespace LowRezJam22
             float x = (int)(X) - _parentScene.CameraX;
             float y = (int)(Y) - _parentScene.CameraY;
 
+            float rotation = 0;
+            switch (GameScene.GravityDirection)
+            {
+                case Gravity.DOWN:
+                    rotation = 3.14f;
+                    break;
+                case Gravity.UP:
+                    rotation = 0f;
+                    break;
+            }
+
             if (_grounded)
             {
                 int index = (int)(_anim) % 4;
-                Renderer.DrawSprite(_movingTexture[index], new Rectangle(x, y, 4, 12), Colors.White, 0, !_lastDirection);
+                Renderer.DrawSprite(_movingTexture[index], new Rectangle(x, y, 4, 12), Colors.White, rotation, !_lastDirection);
             }
             else
             {
-                Renderer.DrawSprite(_jumpingTexture, new Rectangle(x, y, 4, 12), Colors.White, 0, !_lastDirection);
+                Renderer.DrawSprite(_jumpingTexture, new Rectangle(x, y, 4, 12), Colors.White, rotation, !_lastDirection);
             }
         }
     }

@@ -3,11 +3,14 @@ using LowRezJam22.Engine.Graphics;
 using LowRezJam22.Engine.Tiles;
 using LowRezJam22.Helpers;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace LowRezJam22.Scenes
 {
+    enum Gravity { DOWN, UP, LEFT, RIGHT};
+
     internal class GameScene : SceneBase
     {
         public Shader MainShader { get; private set; }
@@ -23,9 +26,22 @@ namespace LowRezJam22.Scenes
         public float CameraY { get; private set; } = 0;
         public Player Player { get; private set; }
         public float SandX = 0;
+        public static Gravity GravityDirection = Gravity.DOWN;
 
         private string tempString =
-            "...........xxxxxxx--------------------------------\n" +
+            "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
+            "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
+            "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
+            "xxxx---------xxxxx----------------------------xxxx\n" +
+            "xxxx------------------------------------------xxxx\n" +
+            "xxxx------------------------------------------xxxx\n" +
+            "xxxx------------------------------------------xxxx\n" +
+            "xxx--------------------------------------------xxx\n" +
+            "--------------------------------------------------\n" +
+            "--------------------------------------------------\n" +
+            "xxx--------------------------------------------xxx\n" + 
+            "xxx--------------------------------------------xxx\n" +
+            "xxx--------xxxxxxx-----------------------------xxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n";
@@ -73,7 +89,7 @@ namespace LowRezJam22.Scenes
                 {
                     if (temp[y][x] == 'x')
                     {
-                        MainTileMap.SetTileAt(x, y + 13, tile);
+                        MainTileMap.SetTileAt(x, y, tile);
                     }
                 }
             }
@@ -84,7 +100,7 @@ namespace LowRezJam22.Scenes
                 playerMoveTextures.Add(new Texture("Assets/Player/CharacterWalk_" + i + ".png"));
             }
             Texture playerJumpTexture = new Texture("Assets/Player/CharacterJump.png");
-            Player = new(0, 0, playerMoveTextures, playerJumpTexture);
+            Player = new(18, 20, playerMoveTextures, playerJumpTexture);
         }
 
         public override void Destroy()
