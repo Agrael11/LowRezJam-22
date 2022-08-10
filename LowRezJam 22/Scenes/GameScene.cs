@@ -27,6 +27,7 @@ namespace LowRezJam22.Scenes
         public Player Player { get; private set; }
         public float SandX = 0;
         public static Gravity GravityDirection = Gravity.DOWN;
+        public List<Enemy> Enemies { get; private set; } = new();
         float rotation = 0;
 
         private string tempString =
@@ -69,6 +70,11 @@ namespace LowRezJam22.Scenes
             _blueBackground.ParallaxStrength = 1;
             _sandBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/Sand.png"), true));
             _sandBackground.ParallaxStrength = 3;
+            Texture cactus0 = new("Assets/Enemies/Cactus_0.png");
+            Texture cactus1 = new("Assets/Enemies/Cactus_1.png");
+            Enemies.Add(new(cactus0, this, 30, 48, Gravity.DOWN, false));
+            Enemies.Add(new(cactus1, this, 46, 44, Gravity.DOWN, false));
+            Enemies.Add(new(cactus1, this, 40, 12, Gravity.UP, false));
 
             List<Texture> desertTiles = new();
             for (int i = 0; i <= 20; i++)
@@ -112,6 +118,11 @@ namespace LowRezJam22.Scenes
         {
             if (Game.Instance is null)
                 return;
+
+            foreach (Enemy enemy in Enemies)
+            {
+                enemy.Update(args);
+            }
 
             Player.Update(args);
         }
@@ -171,6 +182,12 @@ namespace LowRezJam22.Scenes
             MainTileMap.Draw();
 
             CameraX = (int)Player.X - 28;
+
+            foreach (Enemy enemy in Enemies)
+            {
+                enemy.Draw(args);
+            }
+
             Player.Draw(args);
 
             RenderTexture.End();

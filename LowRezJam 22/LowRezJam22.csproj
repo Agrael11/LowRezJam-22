@@ -30,6 +30,12 @@
     <None Update="Assets\Backgrounds\Sand.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Enemies\Cactus_0.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Enemies\Cactus_1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Player\CharacterJump.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
