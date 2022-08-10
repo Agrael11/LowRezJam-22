@@ -37,9 +37,9 @@ namespace LowRezJam22
         public void Init()
         {
             Renderer.Init(null);
-            Scenes.GameScene nextscene = new();
-            SwitchScene(nextscene);
-            nextscene.Init();
+            Scenes.GameScene gamescene = new();
+            SwitchScene(gamescene);
+            gamescene.Init();
         }
 
         public void SwitchScene(Engine.SceneBase newScene)

@@ -25,6 +25,8 @@ namespace LowRezJam22.Scenes
         public float CameraX { get; private set; } = 0;
         public float CameraY { get; private set; } = 0;
         public Player Player { get; private set; }
+        public int CheckPointX = 18;
+        public int CheckPointY = 40;
         public float SandX = 0;
         public static Gravity GravityDirection = Gravity.DOWN;
         public List<Enemy> Enemies { get; private set; } = new();
@@ -50,6 +52,24 @@ namespace LowRezJam22.Scenes
 
         public GameScene()
         {
+        }
+
+        public void Respawn()
+        {
+            Player.X = CheckPointX;
+            Player.Y = CheckPointY;
+            Player.Reset();
+        }
+        
+        public void Death()
+        {
+            if (Game.Instance is null)
+                return;
+
+            DeathScene deathScene = new();
+            deathScene.Init();
+            deathScene.Gamescene = this;
+            Game.Instance.SwitchScene(deathScene);
         }
 
         public override void Init()
@@ -108,6 +128,7 @@ namespace LowRezJam22.Scenes
             }
             Texture playerJumpTexture = new Texture("Assets/Player/CharacterJump.png");
             Player = new(18, 20, playerMoveTextures, playerJumpTexture);
+            Respawn();
         }
 
         public override void Destroy()

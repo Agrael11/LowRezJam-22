@@ -103,6 +103,27 @@ namespace LowRezJam22
                 case Gravity.RIGHT:
                     break;
             }
+
+            Rectangle playerRectangle = new(X, Y, 4, 12);
+            foreach (Enemy enemy in _parentScene.Enemies)
+            {
+                Rectangle enemyRectangle = new(enemy.X, enemy.Y, 4, 4);
+                if (playerRectangle.Intersects(enemyRectangle))
+                {
+                    _parentScene.Death();
+                }
+            }
+        }
+
+        public void Reset()
+        {
+
+            _movingStatus = 0;
+            _velocity = 0;
+
+            _grounded = false;
+            _anim = 0;
+            _lastDirection = true;
         }
 
         public void UpdateDown(FrameEventArgs args)
