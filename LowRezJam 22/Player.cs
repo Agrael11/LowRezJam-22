@@ -129,11 +129,19 @@ namespace LowRezJam22
                     {
                         case "Water":
                             //Collect water
+                            _parentScene.Water--;
                             _parentScene.ObjectsTileMap.RemoveTileAt(key.X, key.Y);
                             break;
                         case "Flag":
-                            _parentScene.level = LevelDefinitions.Defintions[_parentScene.level].NextLevel;
-                            _parentScene.Death();
+                            if (_parentScene.Water > 0)
+                            {
+                                _parentScene.ShowWaterInfo();
+                            }
+                            else
+                            {
+                                _parentScene.level = LevelDefinitions.Defintions[_parentScene.level].NextLevel;
+                                _parentScene.Death();
+                            }
                             //End level
                             break;
                         case "GravityUp":

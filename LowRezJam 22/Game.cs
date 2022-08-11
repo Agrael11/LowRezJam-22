@@ -40,6 +40,10 @@ namespace LowRezJam22
             Scenes.GameScene gamescene = new();
             SwitchScene(gamescene);
             gamescene.Init();
+            Scenes.TutorialScene tutorial = new();
+            tutorial.Gamescene = gamescene;
+            tutorial.Init();
+            SwitchScene(tutorial);
         }
 
         public void SwitchScene(Engine.SceneBase newScene)

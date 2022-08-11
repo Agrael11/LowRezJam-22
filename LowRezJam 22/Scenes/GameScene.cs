@@ -35,6 +35,8 @@ namespace LowRezJam22.Scenes
         public TileMap ObjectsTileMap { get; private set; }
         float rotation = 0;
         public string level = "Level0";
+        public int Water = 0;
+        public bool ShowingInfo = false;
 
         public GameScene()
         {
@@ -61,6 +63,21 @@ namespace LowRezJam22.Scenes
             deathScene.Init();
             deathScene.Gamescene = this;
             Game.Instance.SwitchScene(deathScene);
+        }
+
+        public void ShowWaterInfo()
+        {
+            if (Game.Instance is null)
+                return;
+
+            if (!ShowingInfo)
+            {
+                WaterScene waterScene = new();
+                waterScene.Init();
+                waterScene.Gamescene = this;
+                ShowingInfo = true;
+                Game.Instance.SwitchScene(waterScene);
+            }
         }
 
         public override void Init()
@@ -100,6 +117,7 @@ namespace LowRezJam22.Scenes
         {
             LevelDefinition definition = LevelDefinitions.Defintions[level];
             _background.Layers.Clear();
+            Water = 0;
             switch (definition.Background)
             {
                 case 0:
@@ -166,6 +184,7 @@ namespace LowRezJam22.Scenes
                     }
                     else if (levelSplit[y][x] == 'w')
                     {
+                        Water++;
                         ObjectsTileMap.SetTileAt(x, y, waterTD);
                     }
                     else if (levelSplit[y][x] == 'f')
