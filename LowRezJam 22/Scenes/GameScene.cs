@@ -144,6 +144,20 @@ namespace LowRezJam22.Scenes
                     _background.ParallaxStrength = 1;
                     _foregroundOn = false;
                     break;
+                case 4:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
+                    _background.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Temple.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
+                case 5:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
+                    _background.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Temple.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
             }
 
             Texture gravityUp = new("Assets/SpecialObjects/GravitySwitchUp.png");

@@ -18,6 +18,11 @@ namespace LowRezJam22
             {
                 desertTiles.Add(new Texture("Assets/Tiles/DesertTiles_" + i.ToString().PadLeft(2, '0') + ".png"));
             }
+            List<Texture> pyramidTiles = new();
+            for (int i = 0; i <= 20; i++)
+            {
+                pyramidTiles.Add(new Texture("Assets/Tiles/PyramidTiles_" + i.ToString().PadLeft(2, '0') + ".png"));
+            }
 
             SmartTiles.DesertTile sandTile = new(new() { desertTiles[0] }, new() { desertTiles[1], desertTiles[2] }, new() { desertTiles[3] },
                 new() { desertTiles[4], desertTiles[5] }, new() { desertTiles[6], desertTiles[7] }, new() { desertTiles[8], desertTiles[9] },
@@ -25,6 +30,13 @@ namespace LowRezJam22
                 new() { desertTiles[14] }, new() { desertTiles[15] }, new() { desertTiles[16] },
                 new() { desertTiles[17] }, new() { desertTiles[18] }, new() { desertTiles[19] },
                 new() { desertTiles[20] });
+
+            SmartTiles.DesertTile pyramidTile = new(new() { pyramidTiles[0] }, new() { pyramidTiles[1], pyramidTiles[2] }, new() { pyramidTiles[3] },
+                new() { pyramidTiles[4], pyramidTiles[5] }, new() { pyramidTiles[6], pyramidTiles[7] }, new() { pyramidTiles[8], pyramidTiles[9] },
+                new() { pyramidTiles[10] }, new() { pyramidTiles[11], pyramidTiles[12] }, new() { pyramidTiles[13] },
+                new() { pyramidTiles[14] }, new() { pyramidTiles[15] }, new() { pyramidTiles[16] },
+                new() { pyramidTiles[17] }, new() { pyramidTiles[18] }, new() { pyramidTiles[19] },
+                new() { pyramidTiles[20] });
             string l0map =
             "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
@@ -42,7 +54,9 @@ namespace LowRezJam22
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n";
-            LevelDefinition d = new(0, "Level0", l0map, sandTile, 
+            //LevelDefinition d = new(0, "Level0", l0map, sandTile, 
+            //new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            LevelDefinition d = new(5, "Level0", l0map, pyramidTile, 
                 new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
             Defintions.Add("Level0", d);
         }
