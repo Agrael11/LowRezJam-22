@@ -15,6 +15,7 @@ namespace LowRezJam22.Scenes
     {
         public Shader MainShader { get; private set; }
         public TileMap MainTileMap { get; private set; }
+        public TileMap EnemyBlocksTileMap { get; private set; }
 
         private RenderTexture _gameRenderTexture = new(64, 64);
         private RenderTexture _uiRenderTexture = new(64, 64);
@@ -37,14 +38,14 @@ namespace LowRezJam22.Scenes
             "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
             "xxxx---------xxxxx----------------------------xxxx\n" +
-            "xxxx------------------------------------------xxxx\n" +
+            "xxxx--------y-----y---------------------------xxxx\n" +
             "xxxx------------------------------------------xxxx\n" +
             "xxxx------------------------------------------xxxx\n" +
             "xxx--------------------------------------------xxx\n" +
             "--------------------------------------------------\n" +
             "--------------------------------------------------\n" +
             "xxx--------------------------------------------xxx\n" + 
-            "xxx--------------------------------------------xxx\n" +
+            "xxx-------y-------y----------------------------xxx\n" +
             "xxx--------xxxxxxx-----------------------------xxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
@@ -52,6 +53,9 @@ namespace LowRezJam22.Scenes
 
         public GameScene()
         {
+            MainShader = new NullShader();
+            MainTileMap = new TileMap(0, 0, 0, 0, MainShader);
+            EnemyBlocksTileMap = new TileMap(0, 0, 0, 0, MainShader);
         }
 
         public void Respawn()
@@ -93,8 +97,9 @@ namespace LowRezJam22.Scenes
             Texture cactus0 = new("Assets/Enemies/Cactus_0.png");
             Texture cactus1 = new("Assets/Enemies/Cactus_1.png");
             Enemies.Add(new(cactus0, this, 30, 48, Gravity.DOWN, false));
-            Enemies.Add(new(cactus1, this, 46, 44, Gravity.DOWN, false));
-            Enemies.Add(new(cactus1, this, 40, 12, Gravity.UP, false));
+            Enemies.Add(new(cactus1, this, 46, 44, Gravity.DOWN, true));
+            Enemies.Add(new(cactus1, this, 40, 12, Gravity.UP, true));
+            TileDefinition tempTile = new(new("Assets/Tiles/DesertTiles_00.png"));
 
             List<Texture> desertTiles = new();
             for (int i = 0; i <= 20; i++)
@@ -108,6 +113,7 @@ namespace LowRezJam22.Scenes
                 new() { desertTiles[14] }, new() { desertTiles[15] }, new() { desertTiles[16] },
                 new() { desertTiles[17] }, new() { desertTiles[18] }, new() { desertTiles[19] },
                 new() { desertTiles[20] });
+            EnemyBlocksTileMap = new TileMap(0, 0, 4, 4, MainShader);
             MainTileMap = new TileMap(0, 0, 4, 4, MainShader);
             string[] temp = tempString.Split('\n');
             for (int y = 0; y < temp.Length; y++)
@@ -117,6 +123,10 @@ namespace LowRezJam22.Scenes
                     if (temp[y][x] == 'x')
                     {
                         MainTileMap.SetTileAt(x, y, tile);
+                    }
+                    if (temp[y][x] == 'y')
+                    {
+                        EnemyBlocksTileMap.SetTileAt(x, y, tempTile);
                     }
                 }
             }
@@ -201,6 +211,11 @@ namespace LowRezJam22.Scenes
             MainTileMap.X = -(int)CameraX;
             MainTileMap.Y = (int)CameraY;
             MainTileMap.Draw();
+
+            //DEBUG DRAW ENEMY BLOCKERS
+            /*EnemyBlocksTileMap.X = -(int)CameraX;
+            EnemyBlocksTileMap.Y = (int)CameraY;
+            EnemyBlocksTileMap.Draw();*/
 
             CameraX = (int)Player.X - 28;
 
