@@ -53,6 +53,11 @@ namespace LowRezJam22.Engine.Tiles
             }
         }
 
+        public void Clear()
+        {
+            Tiles.Clear();
+        }
+
         public void Serialize(string file)
         {
             System.Text.Json.JsonSerializerOptions options = new()

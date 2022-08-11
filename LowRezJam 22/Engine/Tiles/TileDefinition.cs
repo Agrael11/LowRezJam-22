@@ -5,6 +5,7 @@ namespace LowRezJam22.Engine.Tiles
     internal class TileDefinition
     {
         private Texture? _textureReference;
+        public string TileID = "Unneeded";
 
         public TileDefinition(Texture? textureReference)
         {

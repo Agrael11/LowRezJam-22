@@ -9,7 +9,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace LowRezJam22.Scenes
 {
-    enum Gravity { DOWN, UP, LEFT, RIGHT};
+    enum Gravity { DOWN, UP, LEFT, RIGHT };
 
     internal class GameScene : SceneBase
     {
@@ -20,9 +20,9 @@ namespace LowRezJam22.Scenes
         private RenderTexture _gameRenderTexture = new(64, 64);
         private RenderTexture _uiRenderTexture = new(64, 64);
         private RenderTexture _mainRendertexture = new(64, 64);
-        private Background _orangeBackground = new();
-        private Background _blueBackground = new();
-        private Background _sandBackground = new();
+        private Background _background = new();
+        private Background _foreground = new();
+        private bool _foregroundOn = true;
         public float CameraX { get; private set; } = 0;
         public float CameraY { get; private set; } = 0;
         public Player Player { get; private set; }
@@ -30,31 +30,17 @@ namespace LowRezJam22.Scenes
         public int CheckPointY = 40;
         public float SandX = 0;
         public static Gravity GravityDirection { get; set; } = Gravity.DOWN;
+        public static Gravity OriginalGravityDirection { get; set; } = Gravity.DOWN;
         public List<Enemy> Enemies { get; private set; } = new();
+        public TileMap ObjectsTileMap { get; private set; }
         float rotation = 0;
-
-        private string tempString =
-            "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
-            "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
-            "xxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxxxxxxx\n" +
-            "xxxx---------xxxxx----------------------------xxxx\n" +
-            "xxxx--------y-----y---------------------------xxxx\n" +
-            "xxxx------------------------------------------xxxx\n" +
-            "xxxx------------------------------------------xxxx\n" +
-            "xxx--------------------------------------------xxx\n" +
-            "--------------------------------------------------\n" +
-            "--------------------------------------------------\n" +
-            "xxx--------------------------------------------xxx\n" + 
-            "xxx-------y-------y----------------------------xxx\n" +
-            "xxx--------xxxxxxx-----------------------------xxx\n" +
-            "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
-            "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
-            "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n";
+        public string level = "Level0";
 
         public GameScene()
         {
             MainShader = new NullShader();
             MainTileMap = new TileMap(0, 0, 0, 0, MainShader);
+            ObjectsTileMap = new TileMap(0, 0, 0, 0, MainShader);
             EnemyBlocksTileMap = new TileMap(0, 0, 0, 0, MainShader);
         }
 
@@ -62,9 +48,10 @@ namespace LowRezJam22.Scenes
         {
             Player.X = CheckPointX;
             Player.Y = CheckPointY;
+            GravityDirection = OriginalGravityDirection;
             Player.Reset();
         }
-        
+
         public void Death()
         {
             if (Game.Instance is null)
@@ -86,50 +73,16 @@ namespace LowRezJam22.Scenes
             MainShader = new Shader("Assets/Shaders/MainShader.vert", "Assets/Shaders/MainShader.frag");
             Renderer.SetShader(MainShader);
 
-            _orangeBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
-            _orangeBackground.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
-            _orangeBackground.ParallaxStrength = 1;
-            _blueBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
-            _blueBackground.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
-            _blueBackground.ParallaxStrength = 1;
-            _sandBackground.Layers.Add((Colors.White, new("Assets/Backgrounds/Sand.png"), true));
-            _sandBackground.ParallaxStrength = 3;
-            Texture cactus0 = new("Assets/Enemies/Cactus_0.png");
-            Texture cactus1 = new("Assets/Enemies/Cactus_1.png");
-            Enemies.Add(new(cactus0, this, 30, 48, Gravity.DOWN, false));
-            Enemies.Add(new(cactus1, this, 46, 44, Gravity.DOWN, true));
-            Enemies.Add(new(cactus1, this, 40, 12, Gravity.UP, true));
-            TileDefinition tempTile = new(new("Assets/Tiles/DesertTiles_00.png"));
-
-            List<Texture> desertTiles = new();
-            for (int i = 0; i <= 20; i++)
-            {
-                desertTiles.Add(new Texture("Assets/Tiles/DesertTiles_" + i.ToString().PadLeft(2, '0') + ".png"));
-            }
-
-            SmartTiles.DesertTile tile = new(new() { desertTiles[0] }, new() { desertTiles[1], desertTiles[2] }, new() { desertTiles[3] },
-                new() { desertTiles[4], desertTiles[5] }, new() { desertTiles[6], desertTiles[7] }, new() { desertTiles[8], desertTiles[9] },
-                new() { desertTiles[10] }, new() { desertTiles[11], desertTiles[12] }, new() { desertTiles[13] },
-                new() { desertTiles[14] }, new() { desertTiles[15] }, new() { desertTiles[16] },
-                new() { desertTiles[17] }, new() { desertTiles[18] }, new() { desertTiles[19] },
-                new() { desertTiles[20] });
             EnemyBlocksTileMap = new TileMap(0, 0, 4, 4, MainShader);
+            ObjectsTileMap = new TileMap(0, 0, 4, 4, MainShader);
             MainTileMap = new TileMap(0, 0, 4, 4, MainShader);
-            string[] temp = tempString.Split('\n');
-            for (int y = 0; y < temp.Length; y++)
-            {
-                for (int x = 0; x < temp[y].Length; x++)
-                {
-                    if (temp[y][x] == 'x')
-                    {
-                        MainTileMap.SetTileAt(x, y, tile);
-                    }
-                    if (temp[y][x] == 'y')
-                    {
-                        EnemyBlocksTileMap.SetTileAt(x, y, tempTile);
-                    }
-                }
-            }
+
+
+            _foreground.Layers.Add((Colors.White, new("Assets/Backgrounds/Sand.png"), true));
+            _foreground.ParallaxStrength = 3;
+
+            LevelDefinitions.LoadDefs();
+
 
             List<Texture> playerMoveTextures = new();
             for (int i = 0; i < 4; i++)
@@ -138,6 +91,134 @@ namespace LowRezJam22.Scenes
             }
             Texture playerJumpTexture = new Texture("Assets/Player/CharacterJump.png");
             Player = new(18, 20, playerMoveTextures, playerJumpTexture);
+
+
+            LoadLevel(level);
+        }
+
+        public void LoadLevel(string level)
+        {
+            LevelDefinition definition = LevelDefinitions.Defintions[level];
+            _background.Layers.Clear();
+            switch (definition.Background)
+            {
+                case 0:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
+                    _background.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = true;
+                    break;
+                case 1:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
+                    _background.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
+                case 2:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
+                    _background.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = true;
+                    break;
+                case 3:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
+                    _background.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
+            }
+
+            Texture gravityUp = new("Assets/SpecialObjects/GravitySwitchUp.png");
+            Texture gravityDown = new("Assets/SpecialObjects/GravitySwitchDown.png");
+            Texture water = new("Assets/SpecialObjects/WaterDropplet.png");
+            Texture flag = new("Assets/SpecialObjects/Flag.png");
+            TileDefinition gravityUpTD = new(gravityUp) { TileID = "GravityUp" };
+            TileDefinition gravityDownTD = new(gravityDown) { TileID = "GravityDown" };
+            TileDefinition waterTD = new(water) { TileID = "Water" };
+            TileDefinition flagTD = new(flag) { TileID = "Flag" };
+
+
+            string[] levelSplit = definition.Map.Split('\n');
+            MainTileMap.Clear();
+            EnemyBlocksTileMap.Clear();
+            Enemies.Clear();
+            ObjectsTileMap.Clear();
+
+            for (int y = 0; y < levelSplit.Length; y++)
+            {
+                for (int x = 0; x < levelSplit[y].Length; x++)
+                {
+                    if (levelSplit[y][x] == 'x')
+                    {
+                        MainTileMap.SetTileAt(x, y, definition.mainTile);
+                    }
+                    else if (levelSplit[y][x] == 'y')
+                    {
+                        EnemyBlocksTileMap.SetTileAt(x, y, definition.mainTile);
+                    }
+                    else if (levelSplit[y][x] == 'd')
+                    {
+                        ObjectsTileMap.SetTileAt(x, y, gravityDownTD);
+                    }
+                    else if (levelSplit[y][x] == 'u')
+                    {
+                        ObjectsTileMap.SetTileAt(x, y, gravityUpTD);
+                    }
+                    else if (levelSplit[y][x] == 'w')
+                    {
+                        ObjectsTileMap.SetTileAt(x, y, waterTD);
+                    }
+                    else if (levelSplit[y][x] == 'f')
+                    {
+                        ObjectsTileMap.SetTileAt(x, y, flagTD);
+                    }
+                    else if (levelSplit[y][x] == 'a')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture1, this, x * 4, y * 4, Gravity.DOWN, false));
+                    }
+                    else if (levelSplit[y][x] == 'b')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture1, this, x * 4, y * 4, Gravity.UP, false));
+                    }
+                    else if (levelSplit[y][x] == 'A')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture2, this, x * 4, y * 4, Gravity.DOWN, false));
+                    }
+                    else if (levelSplit[y][x] == 'B')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture2, this, x * 4, y * 4, Gravity.UP, false));
+                    }
+                    else if (levelSplit[y][x] == 'c')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture1, this, x * 4, y * 4, Gravity.DOWN, true));
+                    }
+                    else if (levelSplit[y][x] == 'e')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture1, this, x * 4, y * 4, Gravity.UP, true));
+                    }
+                    else if (levelSplit[y][x] == 'C')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture2, this, x * 4, y * 4, Gravity.DOWN, true));
+                    }
+                    else if (levelSplit[y][x] == 'E')
+                    {
+                        Enemies.Add(new Enemy(definition.enemyTexture2, this, x * 4, y * 4, Gravity.UP, true));
+                    }
+                    else if (levelSplit[y][x] == 'p')
+                    {
+                        CheckPointX = x * 4;
+                        CheckPointY = y * 4;
+                        OriginalGravityDirection = Gravity.DOWN;
+                    }
+                    else if (levelSplit[y][x] == 'P')
+                    {
+                        CheckPointX = x * 4;
+                        CheckPointY = y * 4;
+                        OriginalGravityDirection = Gravity.UP;
+                    }
+                }
+            }
+
             Respawn();
         }
 
@@ -173,7 +254,7 @@ namespace LowRezJam22.Scenes
             {
                 if (rotation != 0)
                 {
-                    rotation-=0.1f;
+                    rotation -= 0.1f;
                     if (rotation < 0.1f) rotation = 0;
                 }
             }
@@ -188,13 +269,13 @@ namespace LowRezJam22.Scenes
 
             RenderTexture.Begin(_mainRendertexture);
             Renderer.Clear(Colors.Black);
-            _orangeBackground.Draw((int)CameraX, (int)CameraY);
+            _background.Draw((int)CameraX, (int)CameraY);
             Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White, rotation);
-            _sandBackground.Draw((int)(CameraX + SandX), (int)CameraY);
+            _foreground.Draw((int)(CameraX + SandX), (int)CameraY);
             Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
             RenderTexture.End();
 
-            SandX += (float)args.Time*20;
+            SandX += (float)args.Time * 20;
 
             return _mainRendertexture;
         }
@@ -216,6 +297,10 @@ namespace LowRezJam22.Scenes
             /*EnemyBlocksTileMap.X = -(int)CameraX;
             EnemyBlocksTileMap.Y = (int)CameraY;
             EnemyBlocksTileMap.Draw();*/
+
+            ObjectsTileMap.X = -(int)CameraX;
+            ObjectsTileMap.Y = (int)CameraY;
+            ObjectsTileMap.Draw();
 
             CameraX = (int)Player.X - 28;
 

@@ -35,7 +35,8 @@ namespace LowRezJam22
             if (Moving)
             {
                 _velocity += _gravity * (float)args.Time;
-
+                if (_velocity > _maxVelocity) _velocity = _maxVelocity;
+                if (_velocity < -_maxVelocity) _velocity = -_maxVelocity;
                 switch (_heading)
                 {
                     case Gravity.UP:

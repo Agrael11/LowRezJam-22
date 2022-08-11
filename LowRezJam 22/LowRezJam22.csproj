@@ -57,6 +57,18 @@
     <None Update="Assets\Shaders\MainShader.vert">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\SpecialObjects\Flag.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\SpecialObjects\GravitySwitchUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\SpecialObjects\GravitySwitchDown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\SpecialObjects\WaterDropplet.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Tiles\DesertTiles_00.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

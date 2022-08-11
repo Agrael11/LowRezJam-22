@@ -35,6 +35,7 @@ namespace LowRezJam22.Scenes
             if (timer <= 0)
             {
                 Game.Instance.SwitchScene(Gamescene);
+                Gamescene.LoadLevel(Gamescene.level);
                 Gamescene.Respawn();
             }
         }

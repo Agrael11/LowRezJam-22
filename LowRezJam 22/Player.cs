@@ -44,6 +44,22 @@ namespace LowRezJam22
             _parentScene = scene;
         }
 
+        public void SwitchGravity(Gravity newGravity)
+        {
+            if (newGravity == Gravity.UP)
+            {
+                GameScene.GravityDirection = Gravity.UP;
+                _velocity = 0.1f;
+                Y--;
+            }
+            else
+            {
+                GameScene.GravityDirection = Gravity.DOWN;
+                _velocity = 0.1f;
+                Y++;
+            }
+        }
+
         public void Update(FrameEventArgs args)
         {
             if (Game.Instance is null)
@@ -55,21 +71,7 @@ namespace LowRezJam22
 
             _velocity += _gravity * (float)args.Time;
 
-            if (Game.Instance.KeyboardState.IsKeyPressed(Keys.Space))
-            {
-                if (GameScene.GravityDirection == Gravity.DOWN)
-                {
-                    GameScene.GravityDirection = Gravity.UP;
-                    _velocity = 0.1f;
-                    Y--;
-                }
-                else
-                {
-                    GameScene.GravityDirection = Gravity.DOWN;
-                    _velocity = 0.1f;
-                    Y++;
-                }
-            }
+           
 
             if (Game.Instance.KeyboardState.IsKeyDown(Keys.W) && _grounded)
             {
@@ -115,6 +117,32 @@ namespace LowRezJam22
                 if (playerRectangle.Intersects(enemyRectangle))
                 {
                     _parentScene.Death();
+                }
+            }
+
+            foreach (var key in _parentScene.ObjectsTileMap.Tiles.Keys)
+            {
+                Rectangle objectKey = new(key.X * 4, key.Y * 4, 4, 4);
+                if (playerRectangle.Intersects(objectKey))
+                {
+                    switch (_parentScene.ObjectsTileMap.Tiles[key].TileID)
+                    {
+                        case "Water":
+                            //Collect water
+                            _parentScene.ObjectsTileMap.RemoveTileAt(key.X, key.Y);
+                            break;
+                        case "Flag":
+                            _parentScene.level = LevelDefinitions.Defintions[_parentScene.level].NextLevel;
+                            _parentScene.Death();
+                            //End level
+                            break;
+                        case "GravityUp":
+                            SwitchGravity(Gravity.UP);
+                            break;
+                        case "GravityDown":
+                            SwitchGravity(Gravity.DOWN);
+                            break;
+                    }
                 }
             }
         }
