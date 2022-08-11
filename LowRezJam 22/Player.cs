@@ -60,10 +60,14 @@ namespace LowRezJam22
                 if (GameScene.GravityDirection == Gravity.DOWN)
                 {
                     GameScene.GravityDirection = Gravity.UP;
+                    _velocity = 0.1f;
+                    Y--;
                 }
                 else
                 {
                     GameScene.GravityDirection = Gravity.DOWN;
+                    _velocity = 0.1f;
+                    Y++;
                 }
             }
 

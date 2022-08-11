@@ -29,7 +29,7 @@ namespace LowRezJam22.Scenes
         public int CheckPointX = 18;
         public int CheckPointY = 40;
         public float SandX = 0;
-        public static Gravity GravityDirection = Gravity.DOWN;
+        public static Gravity GravityDirection { get; set; } = Gravity.DOWN;
         public List<Enemy> Enemies { get; private set; } = new();
         float rotation = 0;
 
