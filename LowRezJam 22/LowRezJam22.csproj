@@ -9,10 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Tiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="OpenTK" Version="4.7.4" />
     <PackageReference Include="SixLabors.ImageSharp" Version="2.1.3" />
   </ItemGroup>
@@ -21,13 +17,25 @@
     <None Update="Assets\Backgrounds\BlueSky.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Backgrounds\Cave.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Backgrounds\CaveSolid.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Backgrounds\Clouds.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Backgrounds\OrangeSky.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Assets\Backgrounds\Planets.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Assets\Backgrounds\Sand.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Backgrounds\Stars.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\Backgrounds\Temple.png">
@@ -72,130 +80,256 @@
     <None Update="Assets\SpecialObjects\WaterDropplet.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_00.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_00.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_01.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_02.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_02.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_03.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_03.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_04.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_04.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_05.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_05.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_06.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_06.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_07.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_07.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_08.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_08.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_09.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_09.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_10.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_10.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_11.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_11.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_12.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_12.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_13.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_14.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_14.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_15.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_15.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_16.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_17.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_17.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_18.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_18.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_19.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_19.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\DesertTiles_20.png">
+    <None Update="Assets\Tiles\Cave\CaveTiles_20.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_00.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_00.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_01.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_01.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_02.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_02.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_03.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_03.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_04.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_04.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_05.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_05.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_06.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_06.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_07.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_07.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_08.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_08.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_09.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_09.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_10.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_10.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_11.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_11.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_12.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_12.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_13.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_13.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_14.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_14.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_15.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_15.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_16.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_16.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_17.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_17.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_18.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_18.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_19.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_19.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="Assets\Tiles\PyramidTiles_20.png">
+    <None Update="Assets\Tiles\Desert\DesertTiles_20.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_00.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_06.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_07.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_08.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_09.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_11.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_12.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_13.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_14.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_15.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_17.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_18.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_19.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Mars\MarsTiles_20.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_00.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_01.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_02.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_03.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_04.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_05.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_06.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_07.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_08.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_09.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_10.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_11.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_12.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_13.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_14.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_15.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_16.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_17.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_18.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_19.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Tiles\Pyramid\PyramidTiles_20.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Assets\UI\MoveWith.png">

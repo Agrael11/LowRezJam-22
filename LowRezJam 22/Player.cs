@@ -168,6 +168,8 @@ namespace LowRezJam22
 
         public void UpdateDown(FrameEventArgs args)
         {
+            if (_parentScene is null)
+                return;
 
             float velocityChange = _velocity * (float)args.Time * 50;
             Y += velocityChange;
@@ -252,6 +254,8 @@ namespace LowRezJam22
 
         public void UpdateUp(FrameEventArgs args)
         {
+            if (_parentScene is null)
+                return;
 
             float velocityChange = _velocity * (float)args.Time * 50;
             Y -= velocityChange;

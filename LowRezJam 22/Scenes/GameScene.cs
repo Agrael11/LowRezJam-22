@@ -158,6 +158,22 @@ namespace LowRezJam22.Scenes
                     _background.ParallaxStrength = 1;
                     _foregroundOn = false;
                     break;
+                case 6:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/CaveSolid.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
+                case 7:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Cave.png"), true));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
+                case 8:
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Stars.png"), true));
+                    _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Planets.png"), false));
+                    _background.ParallaxStrength = 1;
+                    _foregroundOn = false;
+                    break;
             }
 
             Texture gravityUp = new("Assets/SpecialObjects/GravitySwitchUp.png");
@@ -304,7 +320,10 @@ namespace LowRezJam22.Scenes
             Renderer.Clear(Colors.Black);
             _background.Draw((int)CameraX, (int)CameraY);
             Renderer.DrawSprite(_gameRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White, rotation);
-            _foreground.Draw((int)(CameraX + SandX), (int)CameraY);
+            if (_foregroundOn)
+            {
+                _foreground.Draw((int)(CameraX + SandX), (int)CameraY);
+            }
             Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
             RenderTexture.End();
 
