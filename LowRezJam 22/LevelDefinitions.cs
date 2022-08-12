@@ -82,31 +82,31 @@ namespace LowRezJam22
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n" +
             "xxxxxxxxxxxxxxxxxxxxxxxxxxx----xxxxxxxxxxxxxxxxxxx\n";
             LevelDefinition d = new(0, "Level1", l0map, sandTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_0.png"), new("Assets/Enemies/Enemies_1.png"));
             Defintions.Add("Level0", d);
             d = new(1, "Level2", l0map, sandTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_0.png"), new("Assets/Enemies/Enemies_1.png"));
             Defintions.Add("Level1", d);
             d = new(2, "Level3", l0map, sandTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_0.png"), new("Assets/Enemies/Enemies_1.png"));
             Defintions.Add("Level2", d);
             d = new(3, "Level4", l0map, sandTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_0.png"), new("Assets/Enemies/Enemies_1.png"));
             Defintions.Add("Level3", d);
             d = new(4, "Level5", l0map, pyramidTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_2.png"), new("Assets/Enemies/Enemies_3.png"));
             Defintions.Add("Level4", d);
             d = new(5, "Level6", l0map, pyramidTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_2.png"), new("Assets/Enemies/Enemies_3.png"));
             Defintions.Add("Level5", d);
             d = new(6, "Level7", l0map, caveTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_4.png"), new("Assets/Enemies/Enemies_5.png"));
             Defintions.Add("Level6", d);
             d = new(7, "Level8", l0map, caveTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_4.png"), new("Assets/Enemies/Enemies_5.png"));
             Defintions.Add("Level7", d);
             /*LevelDefinition */d = new(8, "Level0", l0map, marsTile,
-            new("Assets/Enemies/Cactus_0.png"), new("Assets/Enemies/Cactus_1.png"));
+            new("Assets/Enemies/Enemies_6.png"), new("Assets/Enemies/Enemies_7.png"));
             Defintions.Add("Level8", d);
             //Defintions.Add("Level0", d);
         }
