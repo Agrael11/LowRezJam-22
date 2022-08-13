@@ -14,6 +14,8 @@ namespace LowRezJam22
         public Rectangle Viewport { get; private set; } = new(0, 0, 64, 64);
         public float WindowWidth { get; private set; } = 64*10;
         public float WindowHeight { get; private set; } = 64 * 10;
+        public static Engine.Sounds.SoundState? BackgroundTrack;
+        public static int Track = 0;
 
         public void ResizeGame(int scale)
         {
@@ -21,6 +23,25 @@ namespace LowRezJam22
             WindowHeight = 64 * scale;
             Size = new OpenTK.Mathematics.Vector2i((int)WindowWidth, (int)WindowHeight);
             SetViewport(new Rectangle(0, 0, WindowWidth, WindowHeight));
+        }
+
+        public static void PlayBGTrack(string track)
+        {
+            if (BackgroundTrack is not null)
+            {
+                BackgroundTrack.Stop();
+            }
+            BackgroundTrack = Engine.Sounds.SoundManager.Add("Assets/Music/" + track + ".wav", 0.1f, true);
+        }
+
+
+        public static void StopBGTrack()
+        {
+            if (BackgroundTrack is not null)
+            {
+                BackgroundTrack.Stop();
+            }
+            BackgroundTrack = null;
         }
 
         public static void PlaySFX(string effect)
@@ -60,7 +81,6 @@ namespace LowRezJam22
         {
             Scenes.GameScene gamescene = new();
             SwitchScene(gamescene);
-            gamescene.level = "Level4";
             gamescene.Init();
             Scenes.TutorialScene tutorial = new();
             tutorial.Gamescene = gamescene;

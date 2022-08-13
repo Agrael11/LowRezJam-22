@@ -114,6 +114,26 @@ namespace LowRezJam22.Scenes
             LoadLevel(level);
         }
 
+        public void PlayTrack(int track)
+        {
+            if (Game.Track != track)
+            {
+                Game.Track = track;
+                switch (track)
+                {
+                    case 0:
+                        Game.StopBGTrack();
+                        break;
+                    case 1:
+                        Game.PlayBGTrack("sand");
+                        break;
+                    case 2:
+                        Game.PlayBGTrack("BeepBox-Song");
+                        break;
+                }
+            }
+        }
+
         public void LoadLevel(string level)
         {
             LevelDefinition definition = LevelDefinitions.Definitions[level];
@@ -125,24 +145,28 @@ namespace LowRezJam22.Scenes
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
                     _background.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(1);
                     _foregroundOn = true;
                     break;
                 case 1:
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/OrangeSky.png"), false));
                     _background.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(2);
                     _foregroundOn = false;
                     break;
                 case 2:
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
                     _background.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(1);
                     _foregroundOn = true;
                     break;
                 case 3:
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/BlueSky.png"), false));
                     _background.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(0);
                     _foregroundOn = false;
                     break;
                 case 4:
@@ -150,6 +174,7 @@ namespace LowRezJam22.Scenes
                     _background.Layers.Add((new(255, 236, 204, 255), new("Assets/Backgrounds/Clouds.png"), true));
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Temple.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(2);
                     _foregroundOn = false;
                     break;
                 case 5:
@@ -157,22 +182,26 @@ namespace LowRezJam22.Scenes
                     _background.Layers.Add((new(234, 244, 255, 255), new("Assets/Backgrounds/Clouds.png"), true));
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Temple.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(2);
                     _foregroundOn = false;
                     break;
                 case 6:
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/CaveSolid.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(2);
                     _foregroundOn = false;
                     break;
                 case 7:
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Cave.png"), true));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(2);
                     _foregroundOn = false;
                     break;
                 case 8:
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Stars.png"), true));
                     _background.Layers.Add((Colors.White, new("Assets/Backgrounds/Planets.png"), false));
                     _background.ParallaxStrength = 1;
+                    PlayTrack(2);
                     _foregroundOn = false;
                     break;
             }
