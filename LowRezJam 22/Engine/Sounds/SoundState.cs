@@ -24,7 +24,8 @@ namespace LowRezJam22.Engine.Sounds
 
         public void Play()
         {
-            ManagedBass.Bass.Volume = _volume;
+            ManagedBass.Bass.ChannelSetFX(_handle, EffectType.Volume, 1);
+            ManagedBass.Bass.ChannelSetAttribute(_handle, ChannelAttribute.Volume, _volume);
             ManagedBass.Bass.ChannelPlay(_handle, true);
         }
 

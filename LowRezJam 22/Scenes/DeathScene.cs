@@ -34,9 +34,18 @@ namespace LowRezJam22.Scenes
             timer -= (float)args.Time*2;
             if (timer <= 0)
             {
-                Game.Instance.SwitchScene(Gamescene);
-                Gamescene.LoadLevel(Gamescene.level);
-                Gamescene.Respawn();
+                if (LevelDefinitions.Definitions.ContainsKey(Gamescene.level))
+                {
+                    Game.Instance.SwitchScene(Gamescene);
+                    Gamescene.LoadLevel(Gamescene.level);
+                    Gamescene.Respawn();
+                }
+                else
+                {
+                    MenuScene menuScene = new MenuScene();
+                    Game.Instance.SwitchScene(menuScene);
+                    menuScene.Init();
+                }
             }
         }
 

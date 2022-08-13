@@ -1,0 +1,39 @@
+﻿xxx                                                                    xxx
+xxx                                                                    xxx
+xxx                        a                                           xxx
+xxx                        A                                           xxx
+xxx           w            a  w                          w             xxx
+xxx                        a                                           xxx
+xxx                        A                                           xxx
+xxx  p                     a          y       c      y          f      xxx
+xxxxxxxxxaAaaxxxxxxxx      xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxx      xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxx      xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxx    xxxxxxxxxx    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxx      xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                xx      xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                xx      xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                xxxx    xxxxxx    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                        xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx          w             xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                        xxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                      xxxxxxxxxx    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx    y    C            xxxxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx     xxxxxxxxxxxxxxxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx     xxxxxxxxxxxxxxxxxxxxxxxxx      xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx     xxxxxxxxxxxxxxxxxxxxxxxxx    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxx              b                   xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                                    xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxx                              xx    xx        B                     xxx
+xxx   xx                               xx                              xxx
+xxx                                    xx                              xxx
+xxx                                  xxxx                              xxx
+xxx                                                                    xxx
+xxxxx              w                                             w     xxx
+xxx                              xx                                    xxx
+xxx                                                                    xxx
+xxx  y          c         y y         C                  y y           xxx
+xxxaAaxxxxxxxxxxxxxxxxxxxxaAaxxxxxxxxxxxxxxxxxxxxxxxxxxxxaAaxxxxxxxxxxxxxx
+xxxaaAxxxxxxxxxxxxxxxxxxxxaAaxxxxxxxxxxxxxxxxxxxxxxxxxxxxaAaxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

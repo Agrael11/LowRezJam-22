@@ -116,7 +116,7 @@ namespace LowRezJam22.Scenes
 
         public void LoadLevel(string level)
         {
-            LevelDefinition definition = LevelDefinitions.Defintions[level];
+            LevelDefinition definition = LevelDefinitions.Definitions[level];
             _background.Layers.Clear();
             Water = 0;
             switch (definition.Background)
@@ -345,6 +345,26 @@ namespace LowRezJam22.Scenes
                 return;
             }
 
+            CameraX = (int)Player.X - 28;
+            CameraY = (int)Player.Y - 26;
+
+            if (CameraX < 0)
+            {
+                CameraX = 0;
+            }
+            if (CameraX > _mapWidth - 60)
+            {
+                CameraX = _mapWidth - 60;
+            }
+            if (CameraY < 0)
+            {
+                CameraY = 0;
+            }
+            if (CameraY > _mapHeight - 68)
+            {
+                CameraY = _mapHeight - 68;
+            }
+
             _gameRenderTexture.Begin();
             Renderer.Clear(new Color(0, 0, 0, 0));
             MainTileMap.X = -(int)CameraX;
@@ -359,27 +379,6 @@ namespace LowRezJam22.Scenes
             ObjectsTileMap.X = -(int)CameraX;
             ObjectsTileMap.Y = -(int)CameraY;
             ObjectsTileMap.Draw();
-
-            CameraX = (int)Player.X - 28;
-            CameraY = (int)Player.Y - 26;
-
-            if (CameraX < 0)
-            {
-                CameraX = 0;
-            }
-            if (CameraX > _mapWidth-60)
-            {
-                CameraX = _mapWidth-60;
-            }
-            if (CameraY < 0)
-            {
-                CameraY = 0;
-            }
-            if (CameraY > _mapHeight - 68)
-            {
-                CameraY = _mapHeight - 68;
-            }
-            Game.Instance.Title = CameraY.ToString();
 
             foreach (Enemy enemy in Enemies)
             {

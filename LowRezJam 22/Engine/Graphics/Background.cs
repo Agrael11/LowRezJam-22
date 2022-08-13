@@ -25,7 +25,7 @@ namespace LowRezJam22.Engine.Graphics
         private static void DrawScrollLayer(Texture layer, Color tint, int CameraX, int CameraY, int parallax)
         {
             float parallaxX = (CameraX / 4) * parallax;
-            float parallaxY = ((CameraY + 10) / 4) * parallax;
+            float parallaxY = -((CameraY + 10) / 4) * parallax;
 
             while (parallaxX < 0) parallaxX += layer.Width;
             while (parallaxX > layer.Width) parallaxX -= layer.Width;

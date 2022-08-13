@@ -1,0 +1,12 @@
+﻿xx                     xxx                                                                    xxxx                                                                                         xx
+xx                     x x                                                         x                                                             x                                         xx
+xx                     xxx                                                                                                                       x                        x                xx
+xx                                                                                                                                               x                                         xx
+xx                                                                                                                                w                                                        xx
+xx                                              w                                                                                                                                          xx
+xx                                                                                                                                                                 w                       xx
+xx     p                                                   c                y       A                            w          y       c       y                                         w    xx
+xx   xxxxxxxx                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx        a                y   C                   xxxxxxxxxxxxxxx                           f                   xx
+xxxxxxxxxxxxxxxxxxxxaaAaxxxxxxxaaAaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxaxxx       xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxaaAaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxAaaAxxxxxxxaAaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxAAaAxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

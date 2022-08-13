@@ -60,6 +60,7 @@ namespace LowRezJam22
         {
             Scenes.GameScene gamescene = new();
             SwitchScene(gamescene);
+            gamescene.level = "Level4";
             gamescene.Init();
             Scenes.TutorialScene tutorial = new();
             tutorial.Gamescene = gamescene;

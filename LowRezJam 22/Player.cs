@@ -75,7 +75,7 @@ namespace LowRezJam22
 
             if (Game.Instance.KeyboardState.IsKeyDown(Keys.W) && _grounded)
             {
-                _velocity = -_maxVelocity / 1.5f;
+                _velocity = -_maxVelocity / 1.4f;
                 Game.PlaySFX("jump");
             }
 
@@ -150,17 +150,23 @@ namespace LowRezJam22
                             else
                             {
                                 Game.PlaySFX("end");
-                                _parentScene.level = LevelDefinitions.Defintions[_parentScene.level].NextLevel;
+                                _parentScene.level = LevelDefinitions.Definitions[_parentScene.level].NextLevel;
                                 _parentScene.Death();
                             }
                             break;
                         case "GravityUp":
-                            Game.PlaySFX("gravityUp");
-                            SwitchGravity(Gravity.UP);
+                            if (GameScene.GravityDirection != Gravity.UP)
+                            {
+                                Game.PlaySFX("gravityUp");
+                                SwitchGravity(Gravity.UP);
+                            }
                             break;
                         case "GravityDown":
-                            Game.PlaySFX("gravityDown");
-                            SwitchGravity(Gravity.DOWN);
+                            if (GameScene.GravityDirection != Gravity.DOWN)
+                            {
+                                Game.PlaySFX("gravityDown");
+                                SwitchGravity(Gravity.DOWN);
+                            }
                             break;
                     }
                 }
