@@ -65,7 +65,7 @@ namespace LowRezJam22.Engine.Graphics
                 return;
             }
 
-            Game.Instance.SetViewport(new Helpers.Rectangle(0, 0, 512, 512));
+            Game.Instance.SetViewport(new Helpers.Rectangle(0, 0, Game.Instance.WindowWidth, Game.Instance.WindowHeight));
             GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
         }
 

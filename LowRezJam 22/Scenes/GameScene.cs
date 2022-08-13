@@ -37,6 +37,8 @@ namespace LowRezJam22.Scenes
         public string level = "Level0";
         public int Water = 0;
         public bool ShowingInfo = false;
+        private int _mapWidth = 64;
+        private int _mapHeight = 64;
 
         public GameScene()
         {
@@ -98,7 +100,6 @@ namespace LowRezJam22.Scenes
             _foreground.Layers.Add((Colors.White, new("Assets/Backgrounds/Sand.png"), true));
             _foreground.ParallaxStrength = 3;
 
-            LevelDefinitions.LoadDefs();
 
 
             List<Texture> playerMoveTextures = new();
@@ -191,11 +192,16 @@ namespace LowRezJam22.Scenes
             EnemyBlocksTileMap.Clear();
             Enemies.Clear();
             ObjectsTileMap.Clear();
+            _mapHeight = levelSplit.Length * 4;
 
             for (int y = 0; y < levelSplit.Length; y++)
             {
                 for (int x = 0; x < levelSplit[y].Length; x++)
                 {
+                    if (x*4 > _mapWidth)
+                    {
+                        _mapWidth = x * 4;
+                    }
                     if (levelSplit[y][x] == 'x')
                     {
                         MainTileMap.SetTileAt(x, y, definition.mainTile);
@@ -342,7 +348,7 @@ namespace LowRezJam22.Scenes
             _gameRenderTexture.Begin();
             Renderer.Clear(new Color(0, 0, 0, 0));
             MainTileMap.X = -(int)CameraX;
-            MainTileMap.Y = (int)CameraY;
+            MainTileMap.Y = -(int)CameraY;
             MainTileMap.Draw();
 
             //DEBUG DRAW ENEMY BLOCKERS
@@ -351,10 +357,29 @@ namespace LowRezJam22.Scenes
             EnemyBlocksTileMap.Draw();*/
 
             ObjectsTileMap.X = -(int)CameraX;
-            ObjectsTileMap.Y = (int)CameraY;
+            ObjectsTileMap.Y = -(int)CameraY;
             ObjectsTileMap.Draw();
 
             CameraX = (int)Player.X - 28;
+            CameraY = (int)Player.Y - 26;
+
+            if (CameraX < 0)
+            {
+                CameraX = 0;
+            }
+            if (CameraX > _mapWidth-60)
+            {
+                CameraX = _mapWidth-60;
+            }
+            if (CameraY < 0)
+            {
+                CameraY = 0;
+            }
+            if (CameraY > _mapHeight - 68)
+            {
+                CameraY = _mapHeight - 68;
+            }
+            Game.Instance.Title = CameraY.ToString();
 
             foreach (Enemy enemy in Enemies)
             {

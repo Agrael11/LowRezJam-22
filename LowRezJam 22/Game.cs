@@ -12,8 +12,21 @@ namespace LowRezJam22
         public static Game? Instance { get; private set; } = null;
         public Engine.SceneBase? Scene { get; set; } = null;
         public Rectangle Viewport { get; private set; } = new(0, 0, 64, 64);
-        public float WindowWidth { get; private set; } = 512;
-        public float WindowHeight { get; private set; } = 512;
+        public float WindowWidth { get; private set; } = 64*10;
+        public float WindowHeight { get; private set; } = 64 * 10;
+
+        public void ResizeGame(int scale)
+        {
+            WindowWidth = 64 * scale;
+            WindowHeight = 64 * scale;
+            Size = new OpenTK.Mathematics.Vector2i((int)WindowWidth, (int)WindowHeight);
+            SetViewport(new Rectangle(0, 0, WindowWidth, WindowHeight));
+        }
+
+        public static void PlaySFX(string effect)
+        {
+            Engine.Sounds.SoundManager.Add("Assets/Sounds/" + effect + ".wav", 0.1f, false);
+        }
 
         public void SetViewport(int X, int Y, int Width, int Height)
         {
@@ -37,8 +50,15 @@ namespace LowRezJam22
         public void Init()
         {
             Renderer.Init(null);
+            Scenes.MenuScene mainMenuScene = new();
+            SwitchScene(mainMenuScene);
+            mainMenuScene.Init();
+            LevelDefinitions.LoadDefs();
+        }
+        
+        public void StartGame()
+        {
             Scenes.GameScene gamescene = new();
-            //gamescene.level = "Level8";
             SwitchScene(gamescene);
             gamescene.Init();
             Scenes.TutorialScene tutorial = new();
@@ -58,6 +78,7 @@ namespace LowRezJam22
             {
                 Scene.Update(args);
             }
+            Engine.Sounds.SoundManager.Update();
             base.OnUpdateFrame(args);
         }
 
@@ -67,7 +88,8 @@ namespace LowRezJam22
                 return;
             
             RenderTexture rt = Scene.Draw(args);
-            Renderer.DrawSprite(rt, new Rectangle(0, 0, 512, 512), Colors.White);
+            Renderer.Clear(Colors.Black);
+            Renderer.DrawSprite(rt, new Rectangle(0, 0, WindowWidth, WindowHeight), Colors.White);
 
             Context.SwapBuffers();
             base.OnRenderFrame(args);

@@ -54,7 +54,7 @@ namespace LowRezJam22
             GameWindowSettings gameWindowSettings = new();
             NativeWindowSettings nativeWindowSettings = new()
             {
-                Size = new OpenTK.Mathematics.Vector2i(512, 512),
+                Size = new OpenTK.Mathematics.Vector2i(64*10, 64*10),
                 WindowBorder = OpenTK.Windowing.Common.WindowBorder.Fixed,
                 Title = "LowRezJam 22"
             };

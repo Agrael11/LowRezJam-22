@@ -76,6 +76,7 @@ namespace LowRezJam22
             if (Game.Instance.KeyboardState.IsKeyDown(Keys.W) && _grounded)
             {
                 _velocity = -_maxVelocity / 1.5f;
+                Game.PlaySFX("jump");
             }
 
             if (_velocity > _maxVelocity) _velocity = _maxVelocity;
@@ -94,6 +95,13 @@ namespace LowRezJam22
             else
             {
                 _movingStatus = 0;
+            }
+
+            if (Game.Instance.KeyboardState.IsKeyPressed(Keys.Escape))
+            {
+                Scenes.MenuScene mainMenu = new MenuScene();
+                mainMenu.Init();
+                Game.Instance.SwitchScene(mainMenu);
             }
 
             switch (GameScene.GravityDirection)
@@ -116,6 +124,7 @@ namespace LowRezJam22
                 Rectangle enemyRectangle = new(enemy.X, enemy.Y, 4, 4);
                 if (playerRectangle.Intersects(enemyRectangle))
                 {
+                    Game.PlaySFX("hit");
                     _parentScene.Death();
                 }
             }
@@ -131,6 +140,7 @@ namespace LowRezJam22
                             //Collect water
                             _parentScene.Water--;
                             _parentScene.ObjectsTileMap.RemoveTileAt(key.X, key.Y);
+                            Game.PlaySFX("pickup");
                             break;
                         case "Flag":
                             if (_parentScene.Water > 0)
@@ -139,15 +149,17 @@ namespace LowRezJam22
                             }
                             else
                             {
+                                Game.PlaySFX("end");
                                 _parentScene.level = LevelDefinitions.Defintions[_parentScene.level].NextLevel;
                                 _parentScene.Death();
                             }
-                            //End level
                             break;
                         case "GravityUp":
+                            Game.PlaySFX("gravityUp");
                             SwitchGravity(Gravity.UP);
                             break;
                         case "GravityDown":
+                            Game.PlaySFX("gravityDown");
                             SwitchGravity(Gravity.DOWN);
                             break;
                     }
