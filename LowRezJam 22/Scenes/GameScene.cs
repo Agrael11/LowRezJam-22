@@ -18,7 +18,6 @@ namespace LowRezJam22.Scenes
         public TileMap EnemyBlocksTileMap { get; private set; }
 
         private RenderTexture _gameRenderTexture = new(64, 64);
-        private RenderTexture _uiRenderTexture = new(64, 64);
         private RenderTexture _mainRendertexture = new(64, 64);
         private Background _background = new();
         private Background _foreground = new();
@@ -330,7 +329,6 @@ namespace LowRezJam22.Scenes
 
             Renderer.Clear(Colors.Black);
             DrawGame(args);
-            DrawUI(args);
 
             rotation %= 6.28f;
             while (rotation < 0) rotation += 6.28f;
@@ -359,7 +357,6 @@ namespace LowRezJam22.Scenes
             {
                 _foreground.Draw((int)(CameraX + SandX), (int)CameraY);
             }
-            Renderer.DrawSprite(_uiRenderTexture, new Rectangle(0, 0, 64, 64), Colors.White);
             RenderTexture.End();
 
             SandX += (float)args.Time * 20;
@@ -416,12 +413,6 @@ namespace LowRezJam22.Scenes
 
             Player.Draw(args);
 
-            RenderTexture.End();
-        }
-
-        private void DrawUI(FrameEventArgs args)
-        {
-            RenderTexture.Begin(_uiRenderTexture);
             RenderTexture.End();
         }
     }
